@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ais.controller.RecruitLoginController">
+    <children>
+        <Text layoutX="62.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Australian Intelligent Space Recruit">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Text>
+        <Text layoutX="222.0" layoutY="77.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recruit Login Page" wrappingWidth="157.0">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+        <Text layoutX="168.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
+        <TextField fx:id="loginUserName" layoutX="261.0" layoutY="147.0" prefHeight="25.0" prefWidth="195.0" />
+        <Text layoutX="168.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+        <PasswordField fx:id="loginUserPassword" layoutX="261.0" layoutY="188.0" prefHeight="25.0" prefWidth="195.0" />
+        <Button fx:id="loginBtn" layoutX="253.0" layoutY="284.0" mnemonicParsing="false" onAction="#onLoginClicked" onMouseClicked="#onLoginClicked" prefHeight="25.0" prefWidth="82.0" text="Login" textFill="#575141" />
+        <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="161.0" layoutY="101.0" prefHeight="25.0" prefWidth="304.0" textFill="#8d8888" />
+        <Text layoutX="170.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="OTP" />
+        <TextField fx:id="otpValue" layoutX="261.0" layoutY="232.0" prefHeight="24.0" prefWidth="195.0" />
+        <Button layoutX="481.0" layoutY="331.0" mnemonicParsing="false" onAction="#goBack" text="Go Back" />
+
+    </children>
+</AnchorPane>

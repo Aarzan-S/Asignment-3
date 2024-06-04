@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.ais.controller.RegistrationController">
+    <children>
+        <Text layoutX="259.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Staff Page"
+              AnchorPane.bottomAnchor="369.6982421875">
+            <font>
+                <Font name="System Bold" size="14.0"/>
+            </font>
+        </Text>
+        <Label fx:id="welcomeLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="105.0" layoutY="48.0"
+               prefHeight="25.0" prefWidth="382.0">
+            <font>
+                <Font name="System Bold" size="15.0"/>
+            </font>
+        </Label>
+        <Button layoutX="206.0" layoutY="126.0" mnemonicParsing="false" onAction="#showAdminRegistration"
+                prefHeight="25.0" prefWidth="162.0" text="Register Admin"/>
+        <Button layoutX="206.0" layoutY="194.0" mnemonicParsing="false" onAction="#showManagementRegistration"
+                text="Register Management"/>
+        <Button layoutX="475.0" layoutY="340.0" mnemonicParsing="false" onAction="#logOut" text="Logout"/>
+        <Button layoutX="206.0" layoutY="256.0" mnemonicParsing="false" onAction="#showRecruitHistory" prefHeight="24.0"
+                prefWidth="162.0" text="Recruit History"/>
+    </children>
+</AnchorPane>

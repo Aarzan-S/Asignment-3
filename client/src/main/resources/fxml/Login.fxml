@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ais.controller.LoginController">
+    <children>
+        <Text layoutX="62.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Australian Intelligent Space Recruit">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Text>
+        <Text layoutX="215.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login/Registration Page" wrappingWidth="173.0">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+        <Text layoutX="168.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
+        <TextField fx:id="loginUserName" layoutX="262.0" layoutY="153.0" prefHeight="25.0" prefWidth="195.0" />
+        <Text layoutX="170.0" layoutY="213.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+        <PasswordField fx:id="loginUserPassword" layoutX="261.0" layoutY="196.0" prefHeight="25.0" prefWidth="195.0" />
+        <Button fx:id="loginBtn" layoutX="272.0" layoutY="242.0" mnemonicParsing="false" onAction="#onLoginClicked" onMouseClicked="#onLoginClicked" prefHeight="25.0" prefWidth="82.0" text="Login" textFill="#575141" />
+        <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="161.0" layoutY="101.0" prefHeight="25.0" prefWidth="304.0" textFill="#8d8888" />
+        <Button fx:id="onRegisterClicked" layoutX="396.0" layoutY="346.0" mnemonicParsing="false" onAction="#onRegisterClicked" prefHeight="24.0" prefWidth="96.0" text="Register" />
+        <Text fill="#4d4747" layoutX="91.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have account, please register here" wrappingWidth="304.0">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+      <Button fx:id="recruitLogin" layoutX="249.0" layoutY="291.0" mnemonicParsing="false" onAction="#recruitLogin" prefHeight="24.0" prefWidth="129.0" text="Login As Recruit" />
+    </children>
+</AnchorPane>
