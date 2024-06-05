@@ -7,8 +7,8 @@ import org.ais.model.IModel;
 import org.ais.model.Recruit;
 import org.ais.model.RecruitUpdateModel;
 import org.ais.presenter.RecruitUpdatePresenter;
-import org.ais.util.NavigationHelper;
-import org.ais.util.NumberFieldValidator;
+import org.ais.util.routing.NavigationHelper;
+import org.ais.util.validators.NumberFieldValidator;
 import org.ais.view.IView;
 
 import java.net.URL;
@@ -109,10 +109,6 @@ public class RecruitUpdateController implements Controller, IView<Recruit> {
         presenter.updateDetails(recruitDetail, recruit.getId());
     }
 
-    @Override
-    public void display(Recruit object) {
-
-    }
 
     @Override
     public void display(String message, String type) {

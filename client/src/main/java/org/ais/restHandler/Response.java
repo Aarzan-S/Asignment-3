@@ -22,6 +22,11 @@ public class Response implements Serializable {
         this.status = status;
         this.role= role;
     }
+    public Response(String message, LocalDateTime time, String status) {
+        this.message = message;
+        this.time = time;
+        this.status = status;
+    }
 
     public String getMessage() {
         return message;

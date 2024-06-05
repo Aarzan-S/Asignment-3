@@ -27,17 +27,17 @@ public class AdminServiceImpl implements StaffService<AdminStaff> {
     public Response register(AdminStaff staffs) {
         AdminRepository repository = AdminRepository.getInstance();
         if (repository.doesUserExists(staffs)) {
-            return new Response("ERROR: user already registered", LocalDateTime.now(), "FAILED", "");
+            return new Response("ERROR: user already registered", LocalDateTime.now(), "FAILED");
         }
         repository.register(staffs);
-        return new Response("Admin successfully registered", LocalDateTime.now(), "SUCCESS", "");
+        return new Response("Admin successfully registered", LocalDateTime.now(), "SUCCESS");
     }
 
     @Override
     public Response update(AdminStaff staff, int id) {
         AdminRepository repository = AdminRepository.getInstance();
         repository.update(staff, id);
-        return new Response("Admin staff data updated", LocalDateTime.now(), "SUCCESS", "");
+        return new Response("Admin staff data updated", LocalDateTime.now(), "SUCCESS");
     }
 
     @Override

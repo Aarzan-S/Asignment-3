@@ -28,10 +28,13 @@ public class RecruitServiceImpl implements RecruitService {
     }
 
     @Override
-    public Response updateRecruit(Recruit recruit, int id) {
+    public Response updateRecruit(Recruit recruit, int id, boolean isStaff) {
         RecruitRepository repository = RecruitRepository.getInstance();
-        repository.update(recruit, id);
-        return new Response("Recruit  data updated", LocalDateTime.now(), "SUCCESS", "");
+        if (isStaff)
+            repository.updateDetailsByStaff(recruit, id);
+        else
+            repository.updateDetails(recruit, id);
+        return new Response("Recruit  data updated", LocalDateTime.now(), "SUCCESS");
     }
 
     @Override
@@ -45,10 +48,10 @@ public class RecruitServiceImpl implements RecruitService {
     public Response registerRecruit(Recruit recruit) {
         RecruitRepository repository = RecruitRepository.getInstance();
         if (repository.doesUserExists(recruit)) {
-            return new Response("ERROR : Username already exits", LocalDateTime.now(), "FAILURE", "");
+            return new Response("ERROR : Username already exits", LocalDateTime.now(), "FAILURE");
         }
         repository.register(recruit);
-        return new Response("Recruit data added", LocalDateTime.now(), "SUCCESS", "");
+        return new Response("Recruit data added", LocalDateTime.now(), "SUCCESS");
 
     }
 
@@ -56,7 +59,7 @@ public class RecruitServiceImpl implements RecruitService {
     public Response updateDetails(Recruit recruit, int id) {
         RecruitRepository repository = RecruitRepository.getInstance();
         repository.updateDetails(recruit, id);
-        return new Response("Recruit  data updated", LocalDateTime.now(), "SUCCESS", "");
+        return new Response("Recruit  data updated", LocalDateTime.now(), "SUCCESS");
     }
 
     @Override

@@ -78,6 +78,37 @@ public class RecruitHandler {
         }
     }
 
+    public static LinkedList<Recruit> fetchRecruitsHistory() {
+        HttpURLConnection connection = null;
+        try {
+            URL url = new URL("http://localhost:8000/recruit/history");
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Content-Type", "application/json");
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+
+            InputStream inputStream;
+            if (HttpURLConnection.HTTP_OK == connection.getResponseCode()) {
+                inputStream = connection.getInputStream();
+                LinkedList<Recruit> recruits = objectMapper.readValue(inputStream, new TypeReference<>() {
+                });
+                return recruits;
+            } else {
+                inputStream = connection.getErrorStream();
+                Response response = objectMapper.readValue(inputStream, Response.class);
+                return null;
+            }
+        } catch (IOException ex) {
+            System.out.println("Could not connect to server");
+            throw new CustomException("Could not connect to server");
+        } finally {
+            if (connection != null)
+                connection.disconnect();
+        }
+    }
+
     public static Recruit fetchRecruitDetails(String username) {
         HttpURLConnection connection = null;
         try {
@@ -109,6 +140,39 @@ public class RecruitHandler {
         HttpURLConnection connection = null;
         try {
             URL url = new URL("http://localhost:8000/recruit/update/" + id);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true);
+            connection.setRequestMethod("PUT");
+            connection.setRequestProperty("Content-Type", "application/json");
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+            OutputStream outputStream = connection.getOutputStream();
+            String payload = objectMapper.writeValueAsString(recruit);
+            outputStream.write(payload.getBytes());
+            outputStream.flush();
+            outputStream.close();
+            InputStream inputStream;
+            if (HttpURLConnection.HTTP_OK == connection.getResponseCode()) {
+                return null;
+            } else {
+                inputStream = connection.getErrorStream();
+                Response response = objectMapper.readValue(inputStream, Response.class);
+                inputStream.close();
+                return response.getMessage();
+            }
+        } catch (IOException ex) {
+            System.out.println("Could not connect to server");
+            throw new CustomException("Could not connect to server");
+        } finally {
+            if (connection != null)
+                connection.disconnect();
+        }
+    }
+
+    public static String updateDetailsByStaff(Recruit recruit, int id) {
+        HttpURLConnection connection = null;
+        try {
+            URL url = new URL("http://localhost:8000/recruit/updateByStaff/" + id);
             connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true);
             connection.setRequestMethod("PUT");

@@ -6,7 +6,7 @@ import org.ais.model.IModel;
 import org.ais.model.ManagementStaff;
 import org.ais.model.ManagementStaffModel;
 import org.ais.presenter.ManagementPresenter;
-import org.ais.util.NavigationHelper;
+import org.ais.util.routing.NavigationHelper;
 import org.ais.view.IView;
 
 import java.net.URL;
@@ -67,12 +67,7 @@ public class ManagementController implements Controller, IView<ManagementStaff> 
      */
     @FXML
     private void logout() {
-        NavigationHelper.navigate( LOGIN_PAGE, "", "");
-    }
-
-    @Override
-    public void display(ManagementStaff object) {
-
+        NavigationHelper.navigate( LOGIN_PAGE, "","");
     }
 
     @Override

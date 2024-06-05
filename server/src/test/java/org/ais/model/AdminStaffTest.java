@@ -1,16 +1,11 @@
 package org.ais.model;
 
+import junit.framework.TestCase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * This test class will test different methods of AdminStaff class
- */
-class AdminStaffTest {
+public class AdminStaffTest extends TestCase {
 
-    /**
-     * Tests getter and setter of AdminStaff class
-     */
     @Test
     void setPositionType() {
         AdminStaff adminStaff = new AdminStaff();
@@ -24,5 +19,4 @@ class AdminStaffTest {
         adminStaff.setUsername("alexa");
         Assertions.assertEquals("alexa", adminStaff.getUsername());
     }
-
 }

@@ -2,7 +2,7 @@ package org.ais.repository;
 
 import org.ais.exception.CustomException;
 import org.ais.model.Recruit;
-import org.ais.util.DBUtil;
+import org.ais.util.databaseAccess.DBUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,7 +27,7 @@ public class RecruitRepository {
         if (connection == null) {
             throw new CustomException("Could not connect to database.");
         }
-        String sql = "select CONCAT(first_name, ' ', last_name) as full_name, address, phone_number, email_address, " +
+        String sql = "select id, CONCAT(first_name, ' ', last_name) as full_name, address, phone_number, email_address, " +
                 "username, interview_date, highest_qualification, department, location, recruited_by, recruited_on " +
                 "from recruit group by location, address, phone_number, email_address,username, interview_date," +
                 "highest_qualification, department, location, recruited_by, recruited_on, first_name, last_name, id " +
@@ -131,16 +131,38 @@ public class RecruitRepository {
 
     public void updateDetails(Recruit recruit, int id) {
         try (Connection connection = DBUtil.getConnection()) {
-            String sql = "update recruit set full_name = ?, address = ?, phone_number= ?, email_address =?, username=?," +
-                    " password = ? ,highest_qualification = ? where id = ?";
+            String sql = "update recruit set first_name = ?, last_name = ?, address = ?, phone_number= ?, email_address =?, username=?," +
+                    " password =?, highest_qualification = ? where id = ?";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 String[] name = recruit.getFullName().split(" ");
-                preparedStatement.setString(1, recruit.getFullName());
-                preparedStatement.setString(2, recruit.getAddress());
-                preparedStatement.setLong(3, recruit.getPhoneNumber());
-                preparedStatement.setString(4, recruit.getEmail());
-                preparedStatement.setString(5, recruit.getUsername());
-                preparedStatement.setString(6, recruit.getPassword());
+                preparedStatement.setString(1, name[0]);
+                preparedStatement.setString(2, name.length > 1 ? name[1] : "");
+                preparedStatement.setString(3, recruit.getAddress());
+                preparedStatement.setLong(4, recruit.getPhoneNumber());
+                preparedStatement.setString(5, recruit.getEmail());
+                preparedStatement.setString(6, recruit.getUsername());
+                preparedStatement.setString(6, recruit.getUsername());
+                preparedStatement.setString(7, recruit.getPassword());
+                preparedStatement.setString(8, recruit.getHighestQualification());
+                preparedStatement.setInt(9, id);
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void updateDetailsByStaff(Recruit recruit, int id) {
+        try (Connection connection = DBUtil.getConnection()) {
+            String sql = "update recruit set first_name = ?, last_name = ?, address = ?, phone_number= ?, email_address =?, username=?," +
+                    " highest_qualification = ? where id = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                String[] name = recruit.getFullName().split(" ");
+                preparedStatement.setString(1, name[0]);
+                preparedStatement.setString(2, name.length > 1 ? name[1] : "");
+                preparedStatement.setString(3, recruit.getAddress());
+                preparedStatement.setLong(4, recruit.getPhoneNumber());
+                preparedStatement.setString(5, recruit.getEmail());
+                preparedStatement.setString(6, recruit.getUsername());
                 preparedStatement.setString(7, recruit.getHighestQualification());
                 preparedStatement.setInt(8, id);
                 preparedStatement.executeUpdate();

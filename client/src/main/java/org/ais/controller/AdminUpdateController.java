@@ -9,7 +9,7 @@ import org.ais.model.AdminStaff;
 import org.ais.model.AdminUpdateModel;
 import org.ais.model.IModel;
 import org.ais.presenter.AdminUpdatePresenter;
-import org.ais.util.NavigationHelper;
+import org.ais.util.routing.NavigationHelper;
 import org.ais.view.IView;
 
 import java.net.URL;
@@ -87,11 +87,6 @@ public class AdminUpdateController implements Controller, IView<AdminStaff> {
     @FXML
     private void goBack() {
         NavigationHelper.navigate("Admin.fxml", userName, userRole);
-    }
-
-    @Override
-    public void display(AdminStaff object) {
-
     }
 
     @Override

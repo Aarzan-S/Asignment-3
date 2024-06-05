@@ -1,7 +1,7 @@
 package org.ais.repository;
 
 import org.ais.model.Staff;
-import org.ais.util.DBUtil;
+import org.ais.util.databaseAccess.DBUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -11,9 +11,11 @@ module org.ais {
     opens org.ais.controller to javafx.fxml;
     exports org.ais.model;
     opens org.ais.model to javafx.fxml;
-    exports org.ais.util;
-    opens org.ais.util to javafx.fxml;
     exports org.ais.restHandler;
     opens org.ais.restHandler to javafx.fxml;
+    exports org.ais.util.validators;
+    opens org.ais.util.validators to javafx.fxml;
+    exports org.ais.util.routing;
+    opens org.ais.util.routing to javafx.fxml;
 
 }

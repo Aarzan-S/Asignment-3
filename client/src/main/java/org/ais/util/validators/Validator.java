@@ -1,4 +1,4 @@
-package org.ais.util;
+package org.ais.util.validators;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

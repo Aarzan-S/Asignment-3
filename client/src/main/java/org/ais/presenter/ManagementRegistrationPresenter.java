@@ -2,24 +2,22 @@ package org.ais.presenter;
 
 import org.ais.model.IModel;
 import org.ais.model.ManagementStaff;
-import org.ais.restHandler.AdminHandler;
-import org.ais.restHandler.ManagementHandler;
-import org.ais.util.Validator;
+import org.ais.util.validators.Validator;
 import org.ais.view.IView;
 
 import java.io.IOException;
 
 public class ManagementRegistrationPresenter {
-    private IModel<ManagementStaff> managementStaffList;
+    private IModel<ManagementStaff> managementStaffModel;
     private IView<ManagementStaff> view;
 
-    public ManagementRegistrationPresenter(IModel<ManagementStaff> managementStaffList, IView<ManagementStaff> view) {
-        this.managementStaffList = managementStaffList;
+    public ManagementRegistrationPresenter(IModel<ManagementStaff> managementStaffModel, IView<ManagementStaff> view) {
+        this.managementStaffModel = managementStaffModel;
         this.view = view;
     }
 
 //    public void register(ManagementStaff staff) throws IOException {
-//        String errMsg = managementStaffList.register(staff);
+//        String errMsg = managementStaffModel.register(staff);
 //        if (errMsg != null){
 //            view.display(errMsg.split(":")[1], "ERROR");
 //            return;
@@ -35,17 +33,17 @@ public class ManagementRegistrationPresenter {
             view.display("Email address is not valid", "ERROR");
             return;
         }
-        managementStaffList.add(managementStaff);
+        managementStaffModel.add(managementStaff);
         view.clearInputs();
         view.display(managementStaff.getUsername() + " is saved", "INFO");
     }
 
     public void register() throws IOException {
-        if (managementStaffList.getAll().isEmpty()) {
+        if (managementStaffModel.getAll().isEmpty()) {
             view.display("Nothing to register", "ERROR");
             return;
         }
-        String errMsg = managementStaffList.register();
+        String errMsg = managementStaffModel.register();
         if (errMsg != null) {
             view.display(errMsg.split(":")[1], "ERROR");
             return;

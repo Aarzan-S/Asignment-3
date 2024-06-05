@@ -8,7 +8,7 @@ import java.util.LinkedList;
 
 public interface RecruitService {
     LinkedList<Recruit> getAllRecruits() throws SQLException;
-    Response updateRecruit(Recruit recruit, int id);
+    Response updateRecruit(Recruit recruit, int id, boolean isStaff);
     LinkedList<Recruit> getRecruitHistory();
     Response registerRecruit(Recruit recruit);
     Response updateDetails(Recruit recruit, int id);

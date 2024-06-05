@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -78,7 +79,7 @@ public class RecruitHandler implements HttpHandler {
                 }
             } else if (path.equals("recruit/history")) {
                 try {
-                    List<Recruit> recruitList = recruitService.getRecruitHistory();
+                    LinkedList<Recruit> recruitList = recruitService.getRecruitHistory();
                     OutputStream os = exchange.getResponseBody();
                     exchange.getResponseHeaders().set("Content-Type", "application/json");
                     String jsonResponse = objectMapper.writeValueAsString(recruitList);
@@ -97,7 +98,7 @@ public class RecruitHandler implements HttpHandler {
                 try {
                     InputStream inputStream = exchange.getRequestBody();
                     Recruit recruit = objectMapper.readValue(inputStream, Recruit.class);
-                    Response response = recruitService.updateRecruit(recruit, id);
+                    Response response = recruitService.updateRecruit(recruit, id, false);
                     String jsonResponse = objectMapper.writeValueAsString(response);
                     if ("SUCCESS".equals(response.getStatus())) {
                         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, jsonResponse.getBytes().length);
@@ -116,12 +117,12 @@ public class RecruitHandler implements HttpHandler {
                     System.out.println("Could not update Recruit data");
                 }
 
-            } else if (path.startsWith("/recruit/updateDetails")) {
+            } else if (path.startsWith("/recruit/updateByStaff")) {
                 int id = Integer.parseInt(path.split("/")[3]);
                 try {
                     InputStream inputStream = exchange.getRequestBody();
                     Recruit recruit = objectMapper.readValue(inputStream, Recruit.class);
-                    Response response = recruitService.updateRecruit(recruit, id);
+                    Response response = recruitService.updateRecruit(recruit, id, true);
                     String jsonResponse = objectMapper.writeValueAsString(response);
                     if ("SUCCESS".equals(response.getStatus())) {
                         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, jsonResponse.getBytes().length);

@@ -9,7 +9,6 @@ import java.util.Optional;
 public class RecruitModel implements IModel<Recruit> {
     private LinkedList<Recruit> recruitList = new LinkedList<>();
     private LinkedList<Recruit> recruits = new LinkedList<>();
-
     public RecruitModel() {
 //        recruitList = loadData();
     }
@@ -32,7 +31,6 @@ public class RecruitModel implements IModel<Recruit> {
 
     @Override
     public LinkedList<Recruit> getAll() {
-//        List<Recruit> recruits = RecruitHandler.fetchRecruits();
         return recruits;
     }
 
@@ -44,7 +42,7 @@ public class RecruitModel implements IModel<Recruit> {
 
     @Override
     public int update(Recruit recruit, int id) {
-        RecruitHandler.updateDetails(recruit, id);
+        RecruitHandler.updateDetailsByStaff(recruit, id);
         return 1;
     }
 

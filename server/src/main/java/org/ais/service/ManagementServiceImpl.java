@@ -29,16 +29,16 @@ public class ManagementServiceImpl implements StaffService<ManagementStaff> {
     public Response register(ManagementStaff staffs) {
         ManagementRepository repository = ManagementRepository.getInstance();;
         if (repository.doesUserExists(staffs)){
-            return new Response("ERROR: user already registered", LocalDateTime.now(), "FAILED", "");
+            return new Response("ERROR: user already registered", LocalDateTime.now(), "FAILED");
         }
         repository.register(staffs);
-        return new Response("Management staff successfully registered", LocalDateTime.now(), "SUCCESS", "");
+        return new Response("Management staff successfully registered", LocalDateTime.now(), "SUCCESS");
     }
     @Override
     public Response update(ManagementStaff staff, int id) {
         ManagementRepository repository = ManagementRepository.getInstance();;
         repository.update(staff, id);
-        return new Response("Management staff data updated", LocalDateTime.now(), "SUCCESS", "");
+        return new Response("Management staff data updated", LocalDateTime.now(), "SUCCESS");
     }
 
     @Override

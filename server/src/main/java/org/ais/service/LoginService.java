@@ -26,15 +26,15 @@ public class LoginService {
             if (repository.validatePassword(user)) {
                 return new Response("Log in success", LocalDateTime.now(), "SUCCESS", userRole);
             }
-            return new Response("ERROR : Incorrect Password", LocalDateTime.now(), "FAILED", "");
+            return new Response("ERROR : Incorrect Password", LocalDateTime.now(), "FAILED");
         }
-        return new Response("ERROR : User does not exist", LocalDateTime.now(), "FAILED", "");
+        return new Response("ERROR : User does not exist", LocalDateTime.now(), "FAILED");
 
     }
 
     public Response loginRecruit(Recruit recruit, String otp) {
         if (!Objects.equals(otp, "ADMIN001")){
-            return new Response("Incorrect OTP", LocalDateTime.now(), "FAILED", "");
+            return new Response("Incorrect OTP", LocalDateTime.now(), "FAILED");
         }
         RecruitRepository repository = RecruitRepository.getInstance();
         String userRole = repository.doesUserExist(recruit);
@@ -42,8 +42,8 @@ public class LoginService {
             if (repository.validatePassword(recruit)) {
                 return new Response("Log in success", LocalDateTime.now(), "SUCCESS", userRole);
             }
-            return new Response("ERROR : Incorrect Password", LocalDateTime.now(), "FAILED", "");
+            return new Response("ERROR : Incorrect Password", LocalDateTime.now(), "FAILED");
         }
-        return new Response("ERROR : User does not exist", LocalDateTime.now(), "FAILED", "");
+        return new Response("ERROR : User does not exist", LocalDateTime.now(), "FAILED");
     }
 }

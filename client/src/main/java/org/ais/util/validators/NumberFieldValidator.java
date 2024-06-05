@@ -1,4 +1,4 @@
-package org.ais.util;
+package org.ais.util.validators;
 
 import javafx.scene.control.TextFormatter;
 

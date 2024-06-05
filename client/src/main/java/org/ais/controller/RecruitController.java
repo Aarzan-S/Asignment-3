@@ -6,7 +6,7 @@ import org.ais.model.IModel;
 import org.ais.model.Recruit;
 import org.ais.model.RecruitModel;
 import org.ais.presenter.RecruitPresenter;
-import org.ais.util.NavigationHelper;
+import org.ais.util.routing.NavigationHelper;
 import org.ais.view.IView;
 
 import java.net.URL;
@@ -56,12 +56,7 @@ public class RecruitController implements Controller, IView<Recruit> {
      */
     @FXML
     private void logout() {
-        NavigationHelper.navigate("Login.fxml", "", "");
-    }
-
-    @Override
-    public void display(Recruit object) {
-
+        NavigationHelper.navigate("Login.fxml", "","");
     }
 
     @Override

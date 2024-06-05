@@ -2,7 +2,8 @@ package org.ais.presenter;
 
 import org.ais.model.IModel;
 import org.ais.model.Recruit;
-import org.ais.util.Validator;
+import org.ais.restHandler.AdminLogHandler;
+import org.ais.util.validators.Validator;
 import org.ais.view.IView;
 
 import java.io.IOException;
@@ -38,17 +39,18 @@ public class RecruitRegistrationPresenter {
         view.display("Recruit details added", "INFO");
     }
 
-    public void register() throws IOException {
+    public void register(String userRole, String userName) throws IOException {
         if (recruitModel.getAll().isEmpty()) {
             view.display("Nothing to register", "ERROR");
             return;
         }
-        recruitModel.register();
         String errMsg = recruitModel.register();
         if (errMsg != null) {
             view.display(errMsg.split(":")[1], "ERROR");
             return;
         }
+        if ("Admin".equals(userRole) && null != userName)
+            AdminLogHandler.addLog(userName, recruitModel.getAll().get(0).getUsername(), "Register Recruit");
         view.display("Recruit registered", "INFO");
     }
 }

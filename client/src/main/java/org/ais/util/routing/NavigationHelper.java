@@ -1,4 +1,4 @@
-package org.ais.util;
+package org.ais.util.routing;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -91,8 +91,4 @@ public class AdminHandler implements HttpHandler {
         }
     }
 
-    public static void main(String[] args) {
-        int id = Integer.parseInt("/admin/details/2".split("/")[3]);
-        System.out.println(id);
-    }
 }

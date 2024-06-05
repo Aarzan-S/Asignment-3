@@ -12,8 +12,8 @@ import org.ais.model.IModel;
 import org.ais.model.ManagementStaff;
 import org.ais.model.ManagementStaffModel;
 import org.ais.presenter.ManagementRegistrationPresenter;
-import org.ais.util.NavigationHelper;
-import org.ais.util.NumberFieldValidator;
+import org.ais.util.routing.NavigationHelper;
+import org.ais.util.validators.NumberFieldValidator;
 import org.ais.view.IView;
 
 import java.net.URL;
@@ -116,7 +116,7 @@ public class ManagementRegistrationController implements Controller, IView<Manag
      */
     @FXML
     void goBack() {
-        NavigationHelper.navigate( "Login.fxml", userName, userRole);
+        NavigationHelper.navigate( "Registration.fxml", userName, userRole);
     }
 
     /**
@@ -126,11 +126,6 @@ public class ManagementRegistrationController implements Controller, IView<Manag
     @FXML
     private void registerManagementStaff(ActionEvent event) throws Exception {
         presenter.register();
-    }
-
-    @Override
-    public void display(ManagementStaff object) {
-
     }
 
     @Override

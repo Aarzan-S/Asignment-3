@@ -9,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import org.ais.model.IModel;
 import org.ais.model.Recruit;
+import org.ais.restHandler.AdminLogHandler;
 import org.ais.view.IView;
 
 import java.time.LocalDate;
@@ -18,12 +19,17 @@ public class RecruitViewPresenter {
     private IModel<Recruit> recruitModel;
     private IView<Recruit> view;
 
+    private String userName;
+    private String userRole;
+
     public RecruitViewPresenter(IModel<Recruit> recruitModel, IView<Recruit> view) {
         this.recruitModel = recruitModel;
         this.view = view;
     }
 
-    public List<Recruit> loadData() {
+    public List<Recruit> loadData(String userName, String userRole) {
+        this.userName = userName;
+        this.userRole = userRole;
         return recruitModel.loadData();
     }
 
@@ -45,7 +51,6 @@ public class RecruitViewPresenter {
         phoneNumberColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getPhoneNumber().toString()));
         phoneNumberColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         phoneNumberColumn.setOnEditCommit(event -> event.getRowValue().setPhoneNumber(Long.valueOf(event.getNewValue())));
-
 
         TableColumn<Recruit, String> emailColumn = new TableColumn<>("Email");
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -140,7 +145,6 @@ public class RecruitViewPresenter {
         tableView.getColumns().addAll(nameColumn, addressColumn, phoneNumberColumn, emailColumn, usernameColumn,
                 interviewDateColumn, highestQualificationColumn, departmentColumn, locationColumn, buttonColumn);
     }
-
     /**
      * This class defines the property of dropdown column in table namely
      * location and department.
@@ -210,7 +214,9 @@ public class RecruitViewPresenter {
      * @param index   Index of row in the table
      */
     private void updateCSV(Recruit recruit, int index) {
-        recruitModel.update(recruit, index);
+        recruitModel.update(recruit, recruit.getId());
+        if ("Admin".equals(userRole) && null != userName)
+            AdminLogHandler.addLog(userName, recruit.getUsername(), "Update Recruit");
         view.display("Recruit Updated Successfully", "INFO");
     }
 

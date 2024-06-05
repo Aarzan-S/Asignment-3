@@ -1,11 +1,8 @@
 package org.ais;
 
 import com.sun.net.httpserver.HttpServer;
-import org.ais.handler.AdminHandler;
-import org.ais.handler.LoginHandler;
-import org.ais.handler.ManagementHandler;
-import org.ais.handler.RecruitHandler;
-import org.ais.util.DBUtil;
+import org.ais.handler.*;
+import org.ais.util.databaseAccess.DBUtil;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
@@ -20,6 +17,9 @@ public class App {
         server.createContext("/recruit", new RecruitHandler());
         server.createContext("/management", new ManagementHandler());
         server.createContext("/admin", new AdminHandler());
+        server.createContext("/logging", new LoggingHandler());
+        server.createContext("/", new DefaultHandler());
+
         server.setExecutor(Executors.newFixedThreadPool(poolSize));
         server.start();
         System.out.println("Server started. Listening on port " + port + " with thread pool size of " + poolSize);

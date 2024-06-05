@@ -1,4 +1,6 @@
-package org.ais.util;
+package org.ais.util.databaseAccess;
+
+import org.ais.exception.CustomException;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -42,25 +44,32 @@ public class DBUtil {
         String recruitSQL = "create table if not exists `AIS-R-DB`.recruit(" +
                 " id int auto_increment primary key not null, first_name varchar(50), last_name varchar(50)," +
                 " address varchar(255), phone_number varchar(50), email_address varchar(100)," +
-                " username varchar(50), password varchar(255), interview_date varchar(100)," +
+                " username varchar(50) not null unique, password varchar(255), interview_date varchar(100)," +
                 " highest_qualification varchar(50), department varchar(50), location varchar(50),  " +
-                " recruited_by varchar(50), recruited_on varchar(100) )";
+                " recruited_by varchar(50), recruited_on varchar(100), INDEX (username))";
 
         String staffSQL = "create table if not exists `AIS-R-DB`.staff(" +
                 " id int auto_increment primary key not null, first_name varchar(50), last_name varchar(50)," +
                 " address varchar(255), phone_number varchar(50), email_address varchar(100)," +
-                " username varchar(50), password varchar(255), staff_id varchar(50)," +
-                " position_type varchar(50) ,management_level varchar(50), branch varchar(50))";
+                " username varchar(50) not null unique, password varchar(255), staff_id varchar(50)," +
+                " position_type varchar(50) ,management_level varchar(50), branch varchar(50), INDEX (username))";
+
+        String adminLogSQL = "create table if not exists `AIS-R-DB`.admin_log (" +
+                " id int auto_increment primary key not null, admin_username varchar(255)," +
+                " action_type varchar(255), recruit_username varchar(255) not null unique, timestamp TIMESTAMP," +
+                " foreign key fk_admin_username (admin_username) references `AIS-R-DB`.staff(username)," +
+                " foreign key fk_recruit_username (recruit_username) references `AIS-R-DB`.recruit(username))";
 
         try {
-
             connection.prepareStatement(dbCreateSql).execute();
             connection.prepareStatement(recruitSQL).execute();
             connection.prepareStatement(staffSQL).execute();
+            connection.prepareStatement(adminLogSQL).execute();
             loadStaffData(connection);
-//            loadRecruitData(connection);
+            loadRecruitData(connection);
         } catch (SQLException ex) {
-            System.out.println();
+            System.out.println("Could not create db tables");
+            throw new CustomException("Could not create db tables : "+ ex.getMessage());
         } finally {
             connection.close();
         }
@@ -68,7 +77,7 @@ public class DBUtil {
     }
 
     private static void loadStaffData(Connection connection) {
-        String sql = "insert into `AIS-R-DB`.staff (first_name, last_name, address, phone_number, email_address, username, password, staff_id, " +
+        String sql = "insert ignore into `AIS-R-DB`.staff (first_name, last_name, address, phone_number, email_address, username, password, staff_id, " +
                 " position_type, management_level, branch) values(?,?,?,?,?,?,?,?,?,?,?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             BufferedReader reader = new BufferedReader(new FileReader("staff.csv"));
@@ -101,7 +110,7 @@ public class DBUtil {
     }
 
     private static void loadRecruitData(Connection connection) {
-        String sql = "insert into `AIS-R-DB`.recruit (first_name, last_name, address, phone_number, email_address, username, password," +
+        String sql = "insert ignore into `AIS-R-DB`.recruit (first_name, last_name, address, phone_number, email_address, username, password," +
                 " interview_date, highest_qualification, department, location, recruited_by, recruited_on)" +
                 " values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {

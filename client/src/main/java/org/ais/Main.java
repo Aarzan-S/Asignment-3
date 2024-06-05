@@ -4,10 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.ais.util.FileUtil;
-import org.ais.util.NavigationHelper;
+import org.ais.util.routing.NavigationHelper;
 
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -41,7 +39,6 @@ public class Main extends Application {
      * @param args
      */
     public static void main(String[] args) throws IOException {
-        FileUtil.countNoOfRecords(STAFF_CSV_FILE);
         launch();
     }
 }

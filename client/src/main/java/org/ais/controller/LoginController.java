@@ -9,7 +9,7 @@ import org.ais.model.IModel;
 import org.ais.model.Staff;
 import org.ais.model.StaffModel;
 import org.ais.presenter.LoginPresenter;
-import org.ais.util.NavigationHelper;
+import org.ais.util.routing.NavigationHelper;
 import org.ais.view.IView;
 
 import java.net.URL;
@@ -77,12 +77,6 @@ public class LoginController implements Controller, IView<Staff> {
     @FXML
     void recruitLogin() {
         NavigationHelper.navigate("RecruitLogin.fxml", null, null);
-    }
-
-
-    @Override
-    public void display(Staff object) {
-
     }
 
     @Override

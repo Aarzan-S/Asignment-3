@@ -11,7 +11,7 @@ import org.ais.model.IModel;
 import org.ais.model.Recruit;
 import org.ais.model.RecruitModel;
 import org.ais.presenter.RecruitViewPresenter;
-import org.ais.util.NavigationHelper;
+import org.ais.util.routing.NavigationHelper;
 import org.ais.view.IView;
 
 import java.net.URL;
@@ -53,13 +53,13 @@ public class ViewRecruitController implements Controller, IView<Recruit> {
      * Loads data from file, creates column definitions and set the columns along with their data.
      */
     public void loadRecruitData() {
-        recruits.addAll(presenter.loadData());
+        recruits.addAll(presenter.loadData(userName, userRole));
         presenter.generateColumnDefinition(tableView, userRole);
         tableView.setItems(filteredList);
     }
 
     /**
-     * Binds the searchBox property to an event listener which hand;les searching
+     * Binds the searchBox property to an event listener which handles searching
      *
      * @param url
      * @param rb
@@ -75,11 +75,6 @@ public class ViewRecruitController implements Controller, IView<Recruit> {
             }
             return recruit.getFullName().toLowerCase().contains(newVal.toLowerCase().trim());
         }));
-    }
-
-    @Override
-    public void display(Recruit object) {
-
     }
 
     @Override

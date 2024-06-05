@@ -1,15 +1,12 @@
 package org.ais.repository;
 
 import org.ais.model.AdminStaff;
-import org.ais.model.ManagementStaff;
-import org.ais.model.Recruit;
-import org.ais.util.DBUtil;
+import org.ais.util.databaseAccess.DBUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 public class AdminRepository {
     private static AdminRepository instance;
@@ -81,7 +78,7 @@ public class AdminRepository {
 
     public String generateAdminStaffId() {
         try (Connection connection = DBUtil.getConnection()) {
-            String sql = "SELECT CONCAT('Admin-', COUNT(*)) FROM staff";
+            String sql = "SELECT CONCAT('Admin-', COUNT(*) + 1) FROM staff";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     if (resultSet.next()) {

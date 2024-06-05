@@ -19,7 +19,7 @@ public class RecruitHistoryPresenter {
     }
 
     public List<Recruit> loadData() {
-        return recruitModel.getAll();
+        return recruitModel.loadData();
     }
 
     public void generateColumnDefinition(TableView<Recruit> tableView, String userRole) {

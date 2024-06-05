@@ -2,8 +2,7 @@ package org.ais.presenter;
 
 import org.ais.model.AdminStaff;
 import org.ais.model.IModel;
-import org.ais.restHandler.AdminHandler;
-import org.ais.util.Validator;
+import org.ais.util.validators.Validator;
 import org.ais.view.IView;
 
 import java.io.IOException;

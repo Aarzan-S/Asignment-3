@@ -1,4 +1,4 @@
-package org.ais.util;
+package org.ais.util.hashing;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

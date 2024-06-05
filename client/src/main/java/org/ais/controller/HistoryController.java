@@ -11,7 +11,7 @@ import org.ais.model.IModel;
 import org.ais.model.Recruit;
 import org.ais.model.RecruitModel;
 import org.ais.presenter.RecruitHistoryPresenter;
-import org.ais.util.NavigationHelper;
+import org.ais.util.routing.NavigationHelper;
 import org.ais.view.IView;
 
 import java.net.URL;
@@ -85,11 +85,6 @@ public class HistoryController implements Controller, IView<Recruit> {
     private void navigateBack() {
         String page = userRole.equals("Admin") ? ADMIN_PAGE : STAFF_PAGE;
         NavigationHelper.navigate( page, userName, userRole);
-    }
-
-    @Override
-    public void display(Recruit object) {
-
     }
 
     @Override

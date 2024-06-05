@@ -1,12 +1,11 @@
 package org.ais.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import org.ais.model.IModel;
 import org.ais.model.Staff;
 import org.ais.model.StaffModel;
 import org.ais.presenter.StaffPresenter;
-import org.ais.util.NavigationHelper;
+import org.ais.util.routing.NavigationHelper;
 import org.ais.view.IView;
 
 import java.net.URL;
@@ -74,11 +73,6 @@ public class RegistrationController implements Controller, IView<Staff> {
         NavigationHelper.navigate(LOGIN_PAGE, "", "");
     }
 
-
-    @Override
-    public void display(Staff object) {
-
-    }
 
     @Override
     public void display(String message, String type) {

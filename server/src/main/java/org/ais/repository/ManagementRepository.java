@@ -1,7 +1,7 @@
 package org.ais.repository;
 
 import org.ais.model.ManagementStaff;
-import org.ais.util.DBUtil;
+import org.ais.util.databaseAccess.DBUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -47,7 +47,7 @@ public class ManagementRepository {
         LinkedList<ManagementStaff> mngStaffList = new LinkedList<>();
         try (Connection connection = DBUtil.getConnection()) {
             String sql = "select id, CONCAT(first_name, ' ', last_name) as full_name, address, phone_number, email_address," +
-                    " username, management_level, branch from staff";
+                    " username, management_level, branch from staff where staff_id like 'Management%' ";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 ResultSet resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
@@ -88,7 +88,7 @@ public class ManagementRepository {
 
     public String generateManagementStaffId() {
         try (Connection connection = DBUtil.getConnection()) {
-            String sql = "SELECT CONCAT('Management-', COUNT(*)) FROM staff";
+            String sql = "SELECT CONCAT('Management-', COUNT(*) + 1) FROM staff";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     if (resultSet.next()) {

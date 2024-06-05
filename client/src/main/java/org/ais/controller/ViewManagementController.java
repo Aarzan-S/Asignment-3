@@ -9,9 +9,8 @@ import javafx.scene.control.TextField;
 import org.ais.model.IModel;
 import org.ais.model.ManagementStaff;
 import org.ais.model.ManagementStaffModel;
-import org.ais.model.Recruit;
 import org.ais.presenter.ManagementViewPresenter;
-import org.ais.util.NavigationHelper;
+import org.ais.util.routing.NavigationHelper;
 import org.ais.view.IView;
 
 import java.net.URL;
@@ -55,11 +54,6 @@ public class ViewManagementController implements Controller, IView<ManagementSta
             }
             return mng.getFullName().toLowerCase().contains(newVal.toLowerCase().trim());
         }));
-    }
-
-    @Override
-    public void display(ManagementStaff object) {
-
     }
 
     @Override

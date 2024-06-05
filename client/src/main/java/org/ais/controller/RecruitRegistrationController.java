@@ -8,8 +8,8 @@ import org.ais.model.IModel;
 import org.ais.model.Recruit;
 import org.ais.model.RecruitModel;
 import org.ais.presenter.RecruitRegistrationPresenter;
-import org.ais.util.NavigationHelper;
-import org.ais.util.NumberFieldValidator;
+import org.ais.util.routing.NavigationHelper;
+import org.ais.util.validators.NumberFieldValidator;
 import org.ais.view.IView;
 
 import java.net.URL;
@@ -121,7 +121,8 @@ public class RecruitRegistrationController implements Controller, IView<Recruit>
      */
     @FXML
     private void navigateBack() {
-        NavigationHelper.navigate( "Login.fxml", userName, userRole);
+        String path = userName != null ? "Admin.fxml" : "Registration.fxml";
+        NavigationHelper.navigate( path, userName, userRole);
     }
 
     /**
@@ -131,12 +132,7 @@ public class RecruitRegistrationController implements Controller, IView<Recruit>
      */
     @FXML
     private void registerRecruit(ActionEvent event) throws Exception {
-        presenter.register();
-    }
-
-    @Override
-    public void display(Recruit object) {
-
+        presenter.register(userRole, userName);
     }
 
     @Override

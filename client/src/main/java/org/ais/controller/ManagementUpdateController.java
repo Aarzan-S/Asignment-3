@@ -5,14 +5,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import org.ais.Main;
-import org.ais.model.AdminStaff;
 import org.ais.model.IModel;
 import org.ais.model.ManagementStaff;
 import org.ais.model.ManagementUpdateModel;
 import org.ais.presenter.ManagementUpdatePresenter;
-import org.ais.util.NavigationHelper;
-import org.ais.util.NumberFieldValidator;
+import org.ais.util.routing.NavigationHelper;
+import org.ais.util.validators.NumberFieldValidator;
 import org.ais.view.IView;
 
 import java.net.URL;
@@ -94,11 +92,6 @@ public class ManagementUpdateController implements Controller, IView<ManagementS
     @FXML
     private void goBack() {
         NavigationHelper.navigate("Management.fxml", userName, userRole);
-    }
-
-
-    @Override
-    public void display(ManagementStaff object) {
     }
 
     @Override
