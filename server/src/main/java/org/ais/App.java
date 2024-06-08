@@ -7,6 +7,9 @@ import org.ais.util.databaseAccess.DBUtil;
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
 
+/**
+ * This class will create a multithreaded HTTP server with thread pool of 10
+ */
 public class App {
     public static void main(String[] args) throws Exception {
         DBUtil.initializeDB();

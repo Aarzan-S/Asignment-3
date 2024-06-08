@@ -10,7 +10,7 @@ import org.ais.exception.CustomException;
 
 import java.io.IOException;
 
-/*
+/**
     This class will be useful to change scenes as we
     progress through different pages
  */

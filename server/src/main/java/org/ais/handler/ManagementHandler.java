@@ -20,7 +20,10 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * This class handles all the management requests
+ * handles requests based on method type and path
+ */
 public class ManagementHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {

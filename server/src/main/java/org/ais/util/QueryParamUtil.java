@@ -3,6 +3,9 @@ package org.ais.util;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class converts the query parameter into map
+ */
 public class QueryParamUtil {
     public static Map<String, String> queryToMap(String query) {
         Map<String, String> result = new HashMap<>();

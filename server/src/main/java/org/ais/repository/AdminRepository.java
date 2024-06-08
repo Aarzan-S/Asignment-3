@@ -7,10 +7,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+/**
+ * This class handles all the database related operation for admin such as register, update
+ */
 public class AdminRepository {
     private static AdminRepository instance;
-
+    /**
+     * Creates the object of this class if not already exists
+     * @return object
+     */
     public static AdminRepository getInstance() {
         if (instance == null) {
             instance = new AdminRepository();
@@ -18,6 +23,10 @@ public class AdminRepository {
         return instance;
     }
 
+    /**
+     * Adds admin details to database
+     * @param adminStaff
+     */
     public void register(AdminStaff adminStaff) {
         String staffId = generateAdminStaffId();
         try (Connection connection = DBUtil.getConnection()) {
@@ -41,6 +50,11 @@ public class AdminRepository {
         }
     }
 
+    /**
+     * Update admin details
+     * @param adminStaff
+     * @param id
+     */
     public void update(AdminStaff adminStaff, int id) {
         try (Connection connection = DBUtil.getConnection()) {
             String sql = "update staff set first_name = ?, last_name= ?, address= ?, phone_number= ?, email_address= ?," +
@@ -63,6 +77,11 @@ public class AdminRepository {
         }
     }
 
+    /**
+     * Checks if user with username exists ot not
+     * @param adminStaff
+     * @return boolean
+     */
     public boolean doesUserExists(AdminStaff adminStaff) {
         try (Connection connection = DBUtil.getConnection()) {
             String sql = "select username from staff where username = ?";
@@ -76,6 +95,10 @@ public class AdminRepository {
         return false;
     }
 
+    /**
+     * Generates unique staff id
+     * @return
+     */
     public String generateAdminStaffId() {
         try (Connection connection = DBUtil.getConnection()) {
             String sql = "SELECT CONCAT('Admin-', COUNT(*) + 1) FROM staff";
@@ -93,6 +116,11 @@ public class AdminRepository {
         return "Admin-1";
     }
 
+    /**
+     * Fetches admin details by username
+     * @param username
+     * @return
+     */
     public AdminStaff getAdminDetails(String username) {
         AdminStaff adminStaff = null;
         try (Connection connection = DBUtil.getConnection()) {

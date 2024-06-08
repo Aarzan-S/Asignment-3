@@ -1,6 +1,8 @@
 package org.ais.exception;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+/**
+ * This is the custom exception for handing exceptions in the project
+ */
 
 public class CustomException extends RuntimeException{
     public CustomException(String message) {

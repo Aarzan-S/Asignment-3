@@ -13,7 +13,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.LinkedList;
-
+/**
+ * This class handles management rest call to server
+ * Establish connection to server and sends request serialized request and
+ * wait for the response. Deserialize the response and handles response in meaningful way
+ */
 public class ManagementHandler {
     public static String registerManagement(ManagementStaff mngStaff) {
         HttpURLConnection connection = null;

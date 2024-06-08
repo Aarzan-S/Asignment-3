@@ -8,10 +8,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
-
+/**
+ * This class handles all the database related operation for management such as register, update
+ */
 public class ManagementRepository {
     private static ManagementRepository instance;
-
+    /**
+     * Creates the object of this class if not already exists
+     * @return object
+     */
     public static ManagementRepository getInstance() {
         if (instance == null) {
             instance = new ManagementRepository();
@@ -19,6 +24,10 @@ public class ManagementRepository {
         return instance;
     }
 
+    /**
+     * Adds management details to database
+     * @param mngStaff
+     */
     public void register(ManagementStaff mngStaff) {
         String staffId = generateManagementStaffId();
         try (Connection connection = DBUtil.getConnection()) {
@@ -43,6 +52,10 @@ public class ManagementRepository {
         }
     }
 
+    /**
+     * Fetches all management staff details
+     * @return LinkedList<ManagementStaff>
+     */
     public LinkedList<ManagementStaff> fetchManagementStaff() {
         LinkedList<ManagementStaff> mngStaffList = new LinkedList<>();
         try (Connection connection = DBUtil.getConnection()) {
@@ -73,6 +86,11 @@ public class ManagementRepository {
         return null;
     }
 
+    /**
+     * Check if user with the provided username exists or not
+     * @param mngStaff
+     * @return boolean
+     */
     public boolean doesUserExists(ManagementStaff mngStaff) {
         try (Connection connection = DBUtil.getConnection()) {
             String sql = "select username from staff where username = ?";
@@ -85,7 +103,10 @@ public class ManagementRepository {
         }
         return false;
     }
-
+    /**
+     * Generates unique staff id
+     * @return
+     */
     public String generateManagementStaffId() {
         try (Connection connection = DBUtil.getConnection()) {
             String sql = "SELECT CONCAT('Management-', COUNT(*) + 1) FROM staff";
@@ -103,6 +124,11 @@ public class ManagementRepository {
         return "Management-1";
     }
 
+    /**
+     * Update management staff deaths
+     * @param mngStaff
+     * @param id
+     */
     public void update(ManagementStaff mngStaff, int id) {
         try (Connection connection = DBUtil.getConnection()) {
             String sql = "update staff set first_name = ?, last_name= ?, address= ?, phone_number= ?, email_address= ?," +
@@ -125,7 +151,11 @@ public class ManagementRepository {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Fetches management staff deatils by username
+     * @param mngStaff
+     * @return
+     */
     public ManagementStaff getManagementDetails(String username) {
         ManagementStaff mngStaff = null;
         try (Connection connection = DBUtil.getConnection()) {

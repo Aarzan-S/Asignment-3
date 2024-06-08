@@ -12,6 +12,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+/**
+ * This class handles admin rest call to server
+ * Establish connection to server and sends request serialized request and
+ * wait for the response. Deserialize the response and handles response in meaningful way
+ */
 public class AdminHandler {
     public static String registerAdmin(AdminStaff adminStaff) {
         HttpURLConnection connection = null;

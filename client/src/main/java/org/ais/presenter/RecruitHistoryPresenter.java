@@ -8,7 +8,9 @@ import org.ais.model.Recruit;
 import org.ais.view.IView;
 
 import java.util.List;
-
+/**
+ * Represents the logic for the recruit history page
+ */
 public class RecruitHistoryPresenter {
     private IModel<Recruit> recruitModel;
     private IView<Recruit> view;
@@ -18,10 +20,19 @@ public class RecruitHistoryPresenter {
         this.view = view;
     }
 
+    /**
+     * Fetches all recruit data from database
+     * @return
+     */
     public List<Recruit> loadData() {
         return recruitModel.loadData();
     }
 
+    /**
+     * Generates column definitions
+     * @param tableView
+     * @param userRole
+     */
     public void generateColumnDefinition(TableView<Recruit> tableView, String userRole) {
         tableView.setEditable(false);
         TableColumn<Recruit, String> nameColumn = new TableColumn<>("Full Name");

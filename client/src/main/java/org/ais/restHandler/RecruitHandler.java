@@ -14,6 +14,11 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.LinkedList;
 
+/**
+ * This class handles recruit rest call to server
+ * Establish connection to server and sends request serialized request and
+ * wait for the response. Deserialize the response and handles response in meaningful way
+ */
 public class RecruitHandler {
 
     public static String registerRecruit(Recruit recruit) {

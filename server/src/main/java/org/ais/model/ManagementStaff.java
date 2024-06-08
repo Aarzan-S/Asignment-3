@@ -1,5 +1,7 @@
 package org.ais.model;
-
+/**
+ * This class represents Management properties
+ */
 public class ManagementStaff extends Staff{
     private String level;
     private String branch;

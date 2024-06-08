@@ -4,7 +4,9 @@ import org.ais.model.AdminStaff;
 import org.ais.model.IModel;
 import org.ais.restHandler.AdminHandler;
 import org.ais.view.IView;
-
+/**
+ * Represents the logic for the admin update page
+ */
 public class AdminUpdatePresenter {
     private IModel<AdminStaff> adminStaffModel;
     private IView<AdminStaff> view;
@@ -13,6 +15,12 @@ public class AdminUpdatePresenter {
         this.adminStaffModel = adminStaffModel;
         this.view = view;
     }
+
+    /**
+     * Fetches admin details from database
+     * @param username
+     * @return
+     */
 
     public AdminStaff getAdminDetails(String username) {
         AdminStaff adminStaff = adminStaffModel.get(username);
@@ -23,6 +31,12 @@ public class AdminUpdatePresenter {
         return adminStaff;
     }
 
+    /**
+     * Sends update request to server
+     * @param staff
+     * @param id
+     * @return
+     */
     public boolean updateAdminDetails(AdminStaff staff, int id) {
         String errMsg = AdminHandler.updateDetails(staff, id);
         if (errMsg != null) {

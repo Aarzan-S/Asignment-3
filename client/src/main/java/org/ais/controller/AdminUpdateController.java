@@ -78,7 +78,8 @@ public class AdminUpdateController implements Controller, IView<AdminStaff> {
                 , ""
                 , adminStaffPositionType.getValue().trim()
         );
-        presenter.updateAdminDetails(admin, adminStaff.getId());
+        if(presenter.updateAdminDetails(admin, adminStaff.getId()))
+            this.userName = admin.getUsername();
     }
 
     /**

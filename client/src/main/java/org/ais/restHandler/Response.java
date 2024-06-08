@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
+/**
+ * This is generic response used to deserialize the response from server
+ */
 public class Response implements Serializable {
     String message;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")

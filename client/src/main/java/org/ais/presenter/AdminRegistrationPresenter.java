@@ -6,7 +6,9 @@ import org.ais.util.validators.Validator;
 import org.ais.view.IView;
 
 import java.io.IOException;
-
+/**
+ * Represents the logic for the admin registration page
+ */
 public class AdminRegistrationPresenter {
     private IModel<AdminStaff> adminStaffModel;
     private IView<AdminStaff> view;
@@ -15,10 +17,10 @@ public class AdminRegistrationPresenter {
         this.adminStaffModel = adminStaffModel;
         this.view = view;
     }
-    private boolean isRegistered(String name) {
-        return adminStaffModel.get(name) != null;
-    }
-
+    /**
+     * Adds admin details to list which is later used to save
+     * @param adminStaff
+     */
     public void add(AdminStaff adminStaff) {
         if (!Validator.validatePhoneNumber(adminStaff.getPhoneNumber().toString())) {
             view.display("Phone number is not valid", "ERROR");
@@ -27,24 +29,15 @@ public class AdminRegistrationPresenter {
             view.display("Email address is not valid", "ERROR");
             return;
         }
-//        if (isRegistered(adminStaff.getUsername())) {
-//            view.display(adminStaff.getUsername() + " is already registered", "ERROR");
-//            return;
-//        }
         adminStaffModel.add(adminStaff);
         view.clearInputs();
         view.display("Admin details added", "INFO");
     }
 
-//    public void register(AdminStaff staff) throws IOException {
-//        String errMsg = adminStaffModel.register(staff);
-//        if (errMsg != null){
-//            view.display(errMsg.split(":")[1], "ERROR");
-//            return;
-//        }
-//        view.display("Admin Staff registered", "INFO");
-//    }
-
+    /**
+     * Saves admin staff to database
+     * @throws IOException
+     */
     public void register() throws IOException {
         if (adminStaffModel.getAll().isEmpty()) {
             view.display("Nothing to register", "ERROR");

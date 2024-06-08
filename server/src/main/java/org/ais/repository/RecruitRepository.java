@@ -10,10 +10,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.LinkedList;
-
+/**
+ * This class handles all the database related operation for management such as register, update
+ */
 public class RecruitRepository {
     private static RecruitRepository instance;
-
+    /**
+     * Creates the object of this class if not already exists
+     * @return object
+     */
     public static RecruitRepository getInstance() {
         if (instance == null) {
             instance = new RecruitRepository();
@@ -21,6 +26,11 @@ public class RecruitRepository {
         return instance;
     }
 
+    /**
+     * Fetches all recruit details
+     * @return
+     * @throws SQLException
+     */
     public LinkedList<Recruit> fetchAllRecruits() throws SQLException {
         LinkedList<Recruit> recruitList = new LinkedList<>();
         Connection connection = DBUtil.getConnection();
@@ -61,6 +71,11 @@ public class RecruitRepository {
         }
     }
 
+    /**
+     * Updates recruit details only location and department
+     * @param recruit
+     * @param id
+     */
     public void update(Recruit recruit, int id) {
         try (Connection connection = DBUtil.getConnection()) {
             String sql = "update recruit set department = ? , location = ? where id = ?";
@@ -75,6 +90,10 @@ public class RecruitRepository {
         }
     }
 
+    /**
+     * Fetches recruit history
+     * @return
+     */
     public LinkedList<Recruit> fetchRecruitHistory() {
         LinkedList<Recruit> recruitList = new LinkedList<>();
         try (Connection connection = DBUtil.getConnection()) {
@@ -102,6 +121,11 @@ public class RecruitRepository {
         return null;
     }
 
+    /**
+     * Saves recruit details
+     * @param recruit
+     * @return
+     */
     public boolean register(Recruit recruit) {
         try (Connection connection = DBUtil.getConnection()) {
             String sql = "insert into recruit (first_name, last_name, address, phone_number, email_address, username, password," +
@@ -129,6 +153,11 @@ public class RecruitRepository {
         }
     }
 
+    /**
+     * Update recruit details by recruit
+     * @param recruit
+     * @param id
+     */
     public void updateDetails(Recruit recruit, int id) {
         try (Connection connection = DBUtil.getConnection()) {
             String sql = "update recruit set first_name = ?, last_name = ?, address = ?, phone_number= ?, email_address =?, username=?," +
@@ -141,7 +170,6 @@ public class RecruitRepository {
                 preparedStatement.setLong(4, recruit.getPhoneNumber());
                 preparedStatement.setString(5, recruit.getEmail());
                 preparedStatement.setString(6, recruit.getUsername());
-                preparedStatement.setString(6, recruit.getUsername());
                 preparedStatement.setString(7, recruit.getPassword());
                 preparedStatement.setString(8, recruit.getHighestQualification());
                 preparedStatement.setInt(9, id);
@@ -151,6 +179,12 @@ public class RecruitRepository {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Handles update of recruit details by admin staff
+     * @param recruit
+     * @param id
+     */
     public void updateDetailsByStaff(Recruit recruit, int id) {
         try (Connection connection = DBUtil.getConnection()) {
             String sql = "update recruit set first_name = ?, last_name = ?, address = ?, phone_number= ?, email_address =?, username=?," +
@@ -171,7 +205,11 @@ public class RecruitRepository {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Check if user with the provided username exists or not
+     * @param recruit
+     * @return boolean
+     */
     public boolean doesUserExists(Recruit recruit) {
         try (Connection connection = DBUtil.getConnection()) {
             String sql = "select username from recruit where username = ?";
@@ -185,6 +223,12 @@ public class RecruitRepository {
         return false;
     }
 
+    /**
+     * Check if user with the provided username exists or not
+     * if exits return 'Recruit' as user role ese empty string
+     * @param user
+     * @return boolean
+     */
     public String doesUserExist(Recruit user) {
         try (Connection connection = DBUtil.getConnection()) {
             String sql = "select username from recruit where username = ?";
@@ -202,6 +246,11 @@ public class RecruitRepository {
         return null;
     }
 
+    /**
+     * Validate password against stored password in database
+     * @param user
+     * @return
+     */
     public boolean validatePassword(Recruit user) {
         try (Connection connection = DBUtil.getConnection()) {
             String sql = "select password from recruit where username = ?";
@@ -220,6 +269,11 @@ public class RecruitRepository {
         return false;
     }
 
+    /**
+     * Fetches recruit details by username
+     * @param username
+     * @return
+     */
     public Recruit getRecruitDetails(String username) {
         Recruit recruit = null;
         String sql = "select id, CONCAT(first_name, ' ', last_name) as full_name, address, phone_number, email_address, " +

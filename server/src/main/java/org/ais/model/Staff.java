@@ -1,7 +1,9 @@
 package org.ais.model;
 
 import java.io.Serializable;
-
+/**
+ * This is the base class that represent base class both AdminStaff and ManagementStaff
+ */
 public class Staff implements Serializable {
     private int id;
     private String fullName;

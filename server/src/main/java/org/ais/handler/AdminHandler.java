@@ -15,6 +15,10 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.util.Map;
 
+/**
+ * This class handles all the admin requests
+ * handles requests based on method type and path
+ */
 public class AdminHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {

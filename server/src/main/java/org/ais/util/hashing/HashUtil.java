@@ -4,7 +4,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
+/**
+ * This class handles hash creation and validation logic
+ */
 public class HashUtil {
+    /**
+     * Generates hash for given string
+     * @param password
+     * @return
+     */
     public static String generateHash(String password) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");

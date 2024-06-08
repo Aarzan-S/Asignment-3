@@ -83,7 +83,8 @@ public class ManagementUpdateController implements Controller, IView<ManagementS
                 managementStaffManagementLevel.getValue(),
                 managementStaffBranch.getValue()
         );
-        presenter.updateManagementDetails(mngStaff, managementStaff.getId());
+        if (presenter.updateManagementDetails(mngStaff, managementStaff.getId()))
+            this.userName = mngStaff.getUsername();
     }
 
     /**

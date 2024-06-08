@@ -1,5 +1,7 @@
 package org.ais.model;
-
+/**
+ * This class represents Admin properties
+ */
 public class AdminStaff extends Staff{
     private String positionType;
 

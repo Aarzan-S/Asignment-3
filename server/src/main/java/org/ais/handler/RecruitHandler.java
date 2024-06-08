@@ -18,6 +18,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class handles all the recruit requests
+ * handles requests based on method type and path
+ */
 public class RecruitHandler implements HttpHandler {
 
     @Override

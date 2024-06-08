@@ -11,7 +11,11 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-
+/**
+ * This class handles login rest call to server
+ * Establish connection to server and sends request serialized request and
+ * wait for the response. Deserialize the response and handles response in meaningful way
+ */
 public class LoginHandler {
     public static String authenticateUser(Staff staff) {
         HttpURLConnection connection = null;

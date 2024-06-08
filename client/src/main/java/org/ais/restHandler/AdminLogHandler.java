@@ -13,6 +13,11 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class handles admin log rest call to server
+ * Establish connection to server and sends request serialized request and
+ * wait for the response. Deserialize the response and handles response in meaningful way
+ */
 public class AdminLogHandler {
     public static String addLog(String adminUsername, String recruitUsername, String action) {
         HttpURLConnection connection = null;

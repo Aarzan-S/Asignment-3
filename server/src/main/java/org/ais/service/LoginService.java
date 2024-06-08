@@ -8,10 +8,15 @@ import org.ais.repository.StaffRepository;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-
+/**
+ * This class handles authentication of user
+ */
 public class LoginService {
     private static LoginService instance;
-
+    /**
+     * Creates the object of this class if not already exists
+     * @return object
+     */
     public static LoginService getInstance() {
         if (instance == null) {
             instance = new LoginService();
@@ -19,6 +24,11 @@ public class LoginService {
         return instance;
     }
 
+    /**
+     * Handles authentication logic for staff login
+     * @param user
+     * @return
+     */
     public Response login(Staff user) {
         StaffRepository repository = StaffRepository.getInstance();
         String userRole = repository.doesUserExist(user);
@@ -32,6 +42,12 @@ public class LoginService {
 
     }
 
+    /**
+     * Handles authentication logic for recruit login
+     * @param recruit
+     * @param otp
+     * @return
+     */
     public Response loginRecruit(Recruit recruit, String otp) {
         if (!Objects.equals(otp, "ADMIN001")){
             return new Response("Incorrect OTP", LocalDateTime.now(), "FAILED");

@@ -106,7 +106,8 @@ public class RecruitUpdateController implements Controller, IView<Recruit> {
                 "",
                 recruitUsername.getText(),
                 LocalDate.now());
-        presenter.updateDetails(recruitDetail, recruit.getId());
+        if (presenter.updateDetails(recruitDetail, recruit.getId()))
+            this.userName = recruitDetail.getUsername();
     }
 
 

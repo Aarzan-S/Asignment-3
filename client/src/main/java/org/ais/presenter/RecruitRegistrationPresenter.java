@@ -7,7 +7,9 @@ import org.ais.util.validators.Validator;
 import org.ais.view.IView;
 
 import java.io.IOException;
-
+/**
+ * This class Represents the recruit registration logic
+ */
 public class RecruitRegistrationPresenter {
     private IModel<Recruit> recruitModel;
     private IView<Recruit> view;
@@ -17,15 +19,11 @@ public class RecruitRegistrationPresenter {
         this.view = view;
     }
 
-    //    public void register(Recruit recruit) throws IOException {
-//        String errMsg = recruitModel.register(recruit);
-//        if (errMsg != null){
-//            view.display(errMsg.split(":")[1], "ERROR");
-//            return;
-//        }
-//        view.display("Recruit registered", "INFO");
-//        view.clearInputs();
-//    }
+
+    /**
+     * add recruit to recruit list which will then saved to database
+     * @param recruit
+     */
     public void add(Recruit recruit) {
         if (!Validator.validatePhoneNumber(recruit.getPhoneNumber().toString())) {
             view.display("Phone number is not valid", "ERROR");
@@ -38,6 +36,13 @@ public class RecruitRegistrationPresenter {
         view.clearInputs();
         view.display("Recruit details added", "INFO");
     }
+
+    /**
+     * saves recruit details to database
+     * @param userRole
+     * @param userName
+     * @throws IOException
+     */
 
     public void register(String userRole, String userName) throws IOException {
         if (recruitModel.getAll().isEmpty()) {

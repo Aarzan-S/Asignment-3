@@ -15,7 +15,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.util.Map;
-
+/**
+ * This class handles all the login requests
+ * handles requests based on method type and path
+ */
 public class LoginHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {

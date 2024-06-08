@@ -4,7 +4,9 @@ import org.ais.model.IModel;
 import org.ais.model.ManagementStaff;
 import org.ais.restHandler.ManagementHandler;
 import org.ais.view.IView;
-
+/**
+ * Represents the logic for the management update page
+ */
 public class ManagementUpdatePresenter {
     private IModel<ManagementStaff> mngStaffModel;
     private IView<ManagementStaff> view;
@@ -14,6 +16,11 @@ public class ManagementUpdatePresenter {
         this.view = view;
     }
 
+    /**
+     * Fetches management staff detail
+     * @param username
+     * @return
+     */
     public ManagementStaff getManagementDetails(String username) {
         ManagementStaff adminStaff = mngStaffModel.get(username);
         if (adminStaff == null) {
@@ -22,6 +29,13 @@ public class ManagementUpdatePresenter {
         }
         return adminStaff;
     }
+
+    /**
+     * Sends update request to server to update
+     * @param staff
+     * @param id
+     * @return
+     */
 
     public boolean updateManagementDetails(ManagementStaff staff, int id) {
         String errMsg = ManagementHandler.updateDetails(staff, id);

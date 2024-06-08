@@ -8,7 +8,9 @@ import org.ais.model.ManagementStaff;
 import org.ais.view.IView;
 
 import java.util.List;
-
+/**
+ * Represents the logic for the Management page
+ */
 public class ManagementViewPresenter {
     private IModel<ManagementStaff> mngModel;
     private IView<ManagementStaff> view;
@@ -18,10 +20,18 @@ public class ManagementViewPresenter {
         this.view = view;
     }
 
+    /**
+     * Fetches management staff deadbeats
+     * @return
+     */
     public List<ManagementStaff> loadData() {
         return mngModel.loadData();
     }
 
+    /**
+     * Generates column definitions
+     * @param tableView
+     */
     public void generateColumnDefinition(TableView<ManagementStaff> tableView) {
         tableView.setEditable(false);
         TableColumn<ManagementStaff, String> nameColumn = new TableColumn<>("Full Name");

@@ -4,12 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import org.ais.model.Recruit;
 import org.ais.model.Response;
-import org.ais.model.Staff;
 import org.ais.service.LoggingService;
-import org.ais.service.LoginService;
-import org.ais.util.QueryParamUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +13,9 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.util.Map;
 
+/**
+ * This class handles all the logging requests
+ */
 public class LoggingHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {

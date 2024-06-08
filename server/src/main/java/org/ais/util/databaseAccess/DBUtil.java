@@ -10,7 +10,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * This class handles all the logic for database connection and instantiation
+ */
 public class DBUtil {
+    /**
+     * Connect to the database using credntials
+     * @return Connection
+     */
     public static Connection connectDb() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -23,6 +30,10 @@ public class DBUtil {
         return null;
     }
 
+    /**
+     * Connect to specific schema and return the connection
+     * @return
+     */
     public static Connection getConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -35,6 +46,10 @@ public class DBUtil {
         return null;
     }
 
+    /**
+     * Creates the schema and tables if they do not exists already
+     * @throws Exception
+     */
     public static void initializeDB() throws Exception {
         Connection connection = connectDb();
         if (connection == null) {
@@ -55,10 +70,10 @@ public class DBUtil {
                 " position_type varchar(50) ,management_level varchar(50), branch varchar(50), INDEX (username))";
 
         String adminLogSQL = "create table if not exists `AIS-R-DB`.admin_log (" +
-                " id int auto_increment primary key not null, admin_username varchar(255)," +
-                " action_type varchar(255), recruit_username varchar(255) not null unique, timestamp TIMESTAMP," +
-                " foreign key fk_admin_username (admin_username) references `AIS-R-DB`.staff(username)," +
-                " foreign key fk_recruit_username (recruit_username) references `AIS-R-DB`.recruit(username))";
+                " id int auto_increment primary key not null, admin_id int," +
+                " action_type varchar(255), recruit_id int, timestamp TIMESTAMP," +
+                " foreign key fk_admin_id (admin_id) references `AIS-R-DB`.staff(id)," +
+                " foreign key fk_recruit_id (recruit_id) references `AIS-R-DB`.recruit(id))";
 
         try {
             connection.prepareStatement(dbCreateSql).execute();
@@ -76,6 +91,10 @@ public class DBUtil {
         System.out.println("DB initialization complete.");
     }
 
+    /**
+     * Load data from file and inserts into table
+     * @param connection
+     */
     private static void loadStaffData(Connection connection) {
         String sql = "insert ignore into `AIS-R-DB`.staff (first_name, last_name, address, phone_number, email_address, username, password, staff_id, " +
                 " position_type, management_level, branch) values(?,?,?,?,?,?,?,?,?,?,?)";
@@ -108,7 +127,10 @@ public class DBUtil {
             throw new RuntimeException(e);
         }
     }
-
+    /**
+     * Load data from file and inserts into table
+     * @param connection
+     */
     private static void loadRecruitData(Connection connection) {
         String sql = "insert ignore into `AIS-R-DB`.recruit (first_name, last_name, address, phone_number, email_address, username, password," +
                 " interview_date, highest_qualification, department, location, recruited_by, recruited_on)" +

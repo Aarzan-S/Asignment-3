@@ -33,6 +33,12 @@ public class RecruitViewPresenter {
         return recruitModel.loadData();
     }
 
+    /**
+     * generates column definitions for the table view
+     * @param tableView
+     * @param userRole
+     */
+
     public void generateColumnDefinition(TableView<Recruit> tableView, String userRole) {
         tableView.setEditable(userRole.equals("Admin"));
         TableColumn<Recruit, String> nameColumn = new TableColumn<>("Full Name");
