@@ -8,6 +8,7 @@ Before cloning/forking this project, make sure you have the following tools inst
 - [Maven](https://maven.apache.org/)
 - [JavaFx](https://openjfx.io/)
 - [IDE](https://www.jetbrains.com/idea/)
+- [MySQL](https://www.mysql.com/)
 
 ## Installation
 
