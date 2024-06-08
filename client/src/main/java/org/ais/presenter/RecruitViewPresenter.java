@@ -51,7 +51,7 @@ public class RecruitViewPresenter {
         TableColumn<Recruit, String> addressColumn = new TableColumn<>("Address");
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
         addressColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        addressColumn.setOnEditCommit(event -> event.getRowValue().setFullName(event.getNewValue()));
+        addressColumn.setOnEditCommit(event -> event.getRowValue().setAddress(event.getNewValue()));
 
         TableColumn<Recruit, String> phoneNumberColumn = new TableColumn<>("Phone Number");
         phoneNumberColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getPhoneNumber().toString()));
@@ -61,12 +61,12 @@ public class RecruitViewPresenter {
         TableColumn<Recruit, String> emailColumn = new TableColumn<>("Email");
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         emailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        emailColumn.setOnEditCommit(event -> event.getRowValue().setFullName(event.getNewValue()));
+        emailColumn.setOnEditCommit(event -> event.getRowValue().setEmail(event.getNewValue()));
 
         TableColumn<Recruit, String> usernameColumn = new TableColumn<>("Username");
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         usernameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        usernameColumn.setOnEditCommit(event -> event.getRowValue().setFullName(event.getNewValue()));
+        usernameColumn.setOnEditCommit(event -> event.getRowValue().setUsername(event.getNewValue()));
 
         TableColumn<Recruit, LocalDate> interviewDateColumn = new TableColumn<>("Interview Date");
         interviewDateColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getInterviewDate()));
@@ -128,7 +128,7 @@ public class RecruitViewPresenter {
         highestQualificationColumn.setPrefWidth(100);
         highestQualificationColumn.setCellFactory(column -> new ComboBoxCell(FXCollections.observableArrayList("None",
                 "Bachelors", "Masters", "PhD"), "highestQualificationColumn"));
-        highestQualificationColumn.setEditable(true);
+        highestQualificationColumn.setEditable(false);
 
         TableColumn<Recruit, String> departmentColumn = new TableColumn<>("Department");
         departmentColumn.setCellValueFactory(new PropertyValueFactory<>("department"));
@@ -165,8 +165,11 @@ public class RecruitViewPresenter {
                 if (recruit != null) {
                     if (columnName.equals("department"))
                         recruit.setDepartment(comboBox.getValue());
-                    else
+                    else if (columnName.equals("location"))
                         recruit.setLocation(comboBox.getValue());
+                    else if (columnName.equals("highestQualificationColumn"))
+                        recruit.setHighestQualification(comboBox.getValue());
+
                 }
             });
         }

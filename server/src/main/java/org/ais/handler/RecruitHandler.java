@@ -97,31 +97,7 @@ public class RecruitHandler implements HttpHandler {
 
             }
         } else if ("PUT".equals(exchange.getRequestMethod())) {
-            if (path.startsWith("/recruit/update")) {
-                int id = Integer.parseInt(path.split("/")[3]);
-                try {
-                    InputStream inputStream = exchange.getRequestBody();
-                    Recruit recruit = objectMapper.readValue(inputStream, Recruit.class);
-                    Response response = recruitService.updateRecruit(recruit, id, false);
-                    String jsonResponse = objectMapper.writeValueAsString(response);
-                    if ("SUCCESS".equals(response.getStatus())) {
-                        exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, jsonResponse.getBytes().length);
-                        OutputStream outputStream = exchange.getResponseBody();
-                        outputStream.write(jsonResponse.getBytes());
-                        outputStream.flush();
-                        outputStream.close();
-                    } else {
-                        exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, jsonResponse.getBytes().length);
-                        OutputStream outputStream = exchange.getResponseBody();
-                        outputStream.write(jsonResponse.getBytes());
-                        outputStream.flush();
-                        outputStream.close();
-                    }
-                } catch (IOException ex) {
-                    System.out.println("Could not update Recruit data");
-                }
-
-            } else if (path.startsWith("/recruit/updateByStaff")) {
+            if (path.startsWith("/recruit/updateByStaff")) {
                 int id = Integer.parseInt(path.split("/")[3]);
                 try {
                     InputStream inputStream = exchange.getRequestBody();
@@ -144,7 +120,30 @@ public class RecruitHandler implements HttpHandler {
                 } catch (IOException ex) {
                     System.out.println("Could not update Recruit data");
                 }
-            }
+            } else if (path.startsWith("/recruit/update")) {
+                int id = Integer.parseInt(path.split("/")[3]);
+                try {
+                    InputStream inputStream = exchange.getRequestBody();
+                    Recruit recruit = objectMapper.readValue(inputStream, Recruit.class);
+                    Response response = recruitService.updateRecruit(recruit, id, false);
+                    String jsonResponse = objectMapper.writeValueAsString(response);
+                    if ("SUCCESS".equals(response.getStatus())) {
+                        exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, jsonResponse.getBytes().length);
+                        OutputStream outputStream = exchange.getResponseBody();
+                        outputStream.write(jsonResponse.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    } else {
+                        exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, jsonResponse.getBytes().length);
+                        OutputStream outputStream = exchange.getResponseBody();
+                        outputStream.write(jsonResponse.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    }
+                } catch (IOException ex) {
+                    System.out.println("Could not update Recruit data");
+                }
+            }            
         } else {
             exchange.sendResponseHeaders(404, -1);
         }

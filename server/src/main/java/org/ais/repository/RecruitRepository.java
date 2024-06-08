@@ -188,7 +188,7 @@ public class RecruitRepository {
     public void updateDetailsByStaff(Recruit recruit, int id) {
         try (Connection connection = DBUtil.getConnection()) {
             String sql = "update recruit set first_name = ?, last_name = ?, address = ?, phone_number= ?, email_address =?, username=?," +
-                    " highest_qualification = ? where id = ?";
+                    " highest_qualification = ?, location =?, department =? where id = ?";
             try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
                 String[] name = recruit.getFullName().split(" ");
                 preparedStatement.setString(1, name[0]);
@@ -198,7 +198,9 @@ public class RecruitRepository {
                 preparedStatement.setString(5, recruit.getEmail());
                 preparedStatement.setString(6, recruit.getUsername());
                 preparedStatement.setString(7, recruit.getHighestQualification());
-                preparedStatement.setInt(8, id);
+                preparedStatement.setString(8, recruit.getLocation());
+                preparedStatement.setString(9, recruit.getDepartment());
+                preparedStatement.setInt(10, id);
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {

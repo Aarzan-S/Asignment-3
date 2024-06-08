@@ -5,7 +5,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ais.controller.RegistrationController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ais.controller.RegistrationController">
     <children>
         <Text layoutX="229.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registration Page" AnchorPane.bottomAnchor="356.6982421875">
             <font>
@@ -13,7 +13,7 @@
             </font>
         </Text>
         <Button layoutX="206.0" layoutY="126.0" mnemonicParsing="false" onAction="#showAdminRegistration" prefHeight="25.0" prefWidth="181.0" text="Register as Admin" />
-        <Button layoutX="206.0" layoutY="194.0" mnemonicParsing="false" onAction="#showManagementRegistration" text="Register as Management" />
+        <Button layoutX="206.0" layoutY="190.0" mnemonicParsing="false" onAction="#showManagementRegistration" prefHeight="25.0" prefWidth="181.0" text="Register as Management" />
         <Button layoutX="44.0" layoutY="31.0" mnemonicParsing="false" onAction="#goBack" text="Go Back" />
         <Button layoutX="206.0" layoutY="256.0" mnemonicParsing="false" onAction="#showRecruitRegistration" prefHeight="24.0" prefWidth="181.0" text="Register as Recruit" />
     </children>
