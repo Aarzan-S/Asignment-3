@@ -47,26 +47,32 @@ public class RecruitViewPresenter {
         nameColumn.setOnEditCommit(event -> {
             event.getTableView().getItems().get(event.getTablePosition().getRow()).setFullName(event.getNewValue());
         });
+        nameColumn.setSortable(false);
 
         TableColumn<Recruit, String> addressColumn = new TableColumn<>("Address");
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
         addressColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         addressColumn.setOnEditCommit(event -> event.getRowValue().setAddress(event.getNewValue()));
-
+        addressColumn.setSortable(false);
+        
         TableColumn<Recruit, String> phoneNumberColumn = new TableColumn<>("Phone Number");
         phoneNumberColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getPhoneNumber().toString()));
         phoneNumberColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         phoneNumberColumn.setOnEditCommit(event -> event.getRowValue().setPhoneNumber(Long.valueOf(event.getNewValue())));
+        phoneNumberColumn.setSortable(false);
 
         TableColumn<Recruit, String> emailColumn = new TableColumn<>("Email");
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         emailColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         emailColumn.setOnEditCommit(event -> event.getRowValue().setEmail(event.getNewValue()));
-
+        emailColumn.setOnEditCommit(event -> event.getRowValue().setEmail(event.getNewValue()));
+        emailColumn.setSortable(false);
+        
         TableColumn<Recruit, String> usernameColumn = new TableColumn<>("Username");
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         usernameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         usernameColumn.setOnEditCommit(event -> event.getRowValue().setUsername(event.getNewValue()));
+        usernameColumn.setSortable(false);
 
         TableColumn<Recruit, LocalDate> interviewDateColumn = new TableColumn<>("Interview Date");
         interviewDateColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getInterviewDate()));
@@ -122,6 +128,7 @@ public class RecruitViewPresenter {
         interviewDateColumn.setOnEditCommit(event -> {
             event.getRowValue().setInterviewDate(event.getNewValue());
         });
+        interviewDateColumn.setSortable(false);
 
         TableColumn<Recruit, String> highestQualificationColumn = new TableColumn<>("Highest Qualification");
         highestQualificationColumn.setCellValueFactory(new PropertyValueFactory<>("highestQualification"));
@@ -129,13 +136,16 @@ public class RecruitViewPresenter {
         highestQualificationColumn.setCellFactory(column -> new ComboBoxCell(FXCollections.observableArrayList("None",
                 "Bachelors", "Masters", "PhD"), "highestQualificationColumn"));
         highestQualificationColumn.setEditable(false);
-
+        highestQualificationColumn.setSortable(true);
+        highestQualificationColumn.setSortType(TableColumn.SortType.DESCENDING);
+        
         TableColumn<Recruit, String> departmentColumn = new TableColumn<>("Department");
         departmentColumn.setCellValueFactory(new PropertyValueFactory<>("department"));
         departmentColumn.setPrefWidth(100);
         departmentColumn.setCellFactory(column -> new ComboBoxCell(FXCollections.observableArrayList("None",
                 "Software", "Aerospace", "Mechanical", "Electronics"), "department"));
         departmentColumn.setEditable(true);
+        highestQualificationColumn.setSortable(true);
 
         TableColumn<Recruit, String> locationColumn = new TableColumn<>("Location");
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
@@ -143,6 +153,8 @@ public class RecruitViewPresenter {
         locationColumn.setCellFactory(col -> new ComboBoxCell(FXCollections.observableArrayList("None", "Brisbane",
                 "Adelaide", "Sydney", "Melbourne"), "location"));
         locationColumn.setEditable(true);
+        locationColumn.setSortable(false);
+        locationColumn.setSortable(true);
 
         TableColumn<Recruit, Void> buttonColumn = new TableColumn<>("Action");
         buttonColumn.setPrefWidth(100);
@@ -150,6 +162,8 @@ public class RecruitViewPresenter {
         buttonColumn.setCellFactory(param -> new ButtonCell(userRole));
         tableView.getColumns().addAll(nameColumn, addressColumn, phoneNumberColumn, emailColumn, usernameColumn,
                 interviewDateColumn, highestQualificationColumn, departmentColumn, locationColumn, buttonColumn);
+        tableView.getSortOrder().add(highestQualificationColumn);
+        tableView.sort();
     }
     /**
      * This class defines the property of dropdown column in table namely

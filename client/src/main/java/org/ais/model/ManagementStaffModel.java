@@ -36,7 +36,7 @@ public class ManagementStaffModel implements IModel<ManagementStaff> {
 
     @Override
     public int add(ManagementStaff managementStaff) {
-        mngts.add(managementStaff);
+        mngts.add(0,managementStaff);
         return 1;
     }
 

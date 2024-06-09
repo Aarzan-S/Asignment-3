@@ -30,4 +30,19 @@ public class RecruitLoginPresenter {
         }
         return true;
     }
+    /**
+     * Gets OTP for recruit login
+     * @param username 
+     */
+    
+    public void getOTP(String username) {
+        view.display("", "OTP");
+        String response = RecruitHandler.getOTP(username);
+        if (response.startsWith("ERROR")) {
+            view.display(response.split(":")[1], "ERROR");
+            return;
+        }
+        view.display(response, "OTP");
+    }
+
 }

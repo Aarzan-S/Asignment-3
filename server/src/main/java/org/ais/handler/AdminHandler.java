@@ -26,28 +26,54 @@ public class AdminHandler implements HttpHandler {
         objectMapper.registerModule(new JavaTimeModule());
         String path = exchange.getRequestURI().getPath();
         AdminServiceImpl adminService = AdminServiceImpl.getInstance();
-        if ("POST".equals(exchange.getRequestMethod()) && path.equals("/admin/registration")) {
-            try {
-                InputStream inputStream = exchange.getRequestBody();
-                AdminStaff adminStaff = objectMapper.readValue(inputStream, AdminStaff.class);
-                Response response = adminService.register(adminStaff);
-                String jsonResponse = objectMapper.writeValueAsString(response);
-                if ("SUCCESS".equals(response.getStatus())) {
-                    exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, jsonResponse.getBytes().length);
-                    OutputStream outputStream = exchange.getResponseBody();
-                    outputStream.write(jsonResponse.getBytes());
-                    outputStream.flush();
-                    outputStream.close();
-                } else {
-                    exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, jsonResponse.getBytes().length);
-                    OutputStream outputStream = exchange.getResponseBody();
-                    outputStream.write(jsonResponse.getBytes());
-                    outputStream.flush();
-                    outputStream.close();
+        if ("POST".equals(exchange.getRequestMethod())) {
+            if( path.equals("/admin/registration")){
+                try {
+                    InputStream inputStream = exchange.getRequestBody();
+                    AdminStaff adminStaff = objectMapper.readValue(inputStream, AdminStaff.class);
+                    Response response = adminService.register(adminStaff);
+                    String jsonResponse = objectMapper.writeValueAsString(response);
+                    if ("SUCCESS".equals(response.getStatus())) {
+                        exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, jsonResponse.getBytes().length);
+                        OutputStream outputStream = exchange.getResponseBody();
+                        outputStream.write(jsonResponse.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    } else {
+                        exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, jsonResponse.getBytes().length);
+                        OutputStream outputStream = exchange.getResponseBody();
+                        outputStream.write(jsonResponse.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    }
+                } catch (IOException ex) {
+                    System.out.println("Could not register admin");
                 }
-            } catch (IOException ex) {
-                System.out.println("Could not register admin");
-            }
+            } else if (path.startsWith("/admin/recruit-otp-request")) {
+                try {
+                    String query = exchange.getRequestURI().getQuery();
+                    Map<String, String> params = QueryParamUtil.queryToMap(query);
+                    String username = params.get("username");
+
+                    Response response = adminService.generateOTP(username);
+                    String jsonResponse = objectMapper.writeValueAsString(response);
+                    if ("SUCCESS".equals(response.getStatus())) {
+                        exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, jsonResponse.getBytes().length);
+                        OutputStream outputStream = exchange.getResponseBody();
+                        outputStream.write(jsonResponse.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    } else {
+                        exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, jsonResponse.getBytes().length);
+                        OutputStream outputStream = exchange.getResponseBody();
+                        outputStream.write(jsonResponse.getBytes());
+                        outputStream.flush();
+                        outputStream.close();
+                    }
+                } catch (IOException ex) {
+                    System.out.println("Could not fetch recruit otp");
+                }
+            } 
         } else if ("GET".equals(exchange.getRequestMethod())) {
             if (path.startsWith("/admin/details")) {
                 String query = exchange.getRequestURI().getQuery();

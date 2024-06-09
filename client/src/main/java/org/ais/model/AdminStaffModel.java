@@ -39,7 +39,7 @@ public class AdminStaffModel implements IModel<AdminStaff> {
 
     @Override
     public int add(AdminStaff adminStaff) {
-        admins.add(adminStaff);
+        admins.add(0,adminStaff);
         return 1;
     }
 

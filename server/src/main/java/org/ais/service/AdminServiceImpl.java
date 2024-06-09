@@ -6,6 +6,8 @@ import org.ais.repository.AdminRepository;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
+import java.util.Random;
+import org.ais.repository.RecruitRepository;
 
 public class AdminServiceImpl implements StaffService<AdminStaff> {
 
@@ -44,5 +46,15 @@ public class AdminServiceImpl implements StaffService<AdminStaff> {
     public AdminStaff getDetails(String username) {
         AdminRepository repository = AdminRepository.getInstance();
         return repository.getAdminDetails(username);
+    }
+    
+    public Response generateOTP(String username) {
+        AdminRepository repository = AdminRepository.getInstance();
+        RecruitRepository recruitRepository = RecruitRepository.getInstance();
+        int recruitId = recruitRepository.getRecruitId(username);
+        if(recruitId == 0)
+            return new Response("ERROR :User does not exists", LocalDateTime.now(), "FAILURE");
+        String otp = repository.generateOTP(recruitId);
+        return new Response(otp, LocalDateTime.now(), "SUCCESS");
     }
 }

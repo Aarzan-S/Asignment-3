@@ -31,7 +31,7 @@ public class ManagementRegistrationPresenter {
             return;
         }
         managementStaffModel.add(managementStaff);
-        view.clearInputs();
+//        view.clearInputs();
         view.display(managementStaff.getUsername() + " is saved", "INFO");
     }
 
@@ -49,6 +49,7 @@ public class ManagementRegistrationPresenter {
             view.display(errMsg.split(":")[1], "ERROR");
             return;
         }
+        view.clearInputs();
         view.display("Management Staff registered", "INFO");
     }
 }

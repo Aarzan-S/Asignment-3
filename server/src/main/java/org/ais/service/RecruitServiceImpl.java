@@ -24,7 +24,8 @@ public class RecruitServiceImpl implements RecruitService {
     public LinkedList<Recruit> getAllRecruits() throws SQLException {
         RecruitRepository repository = RecruitRepository.getInstance();
         LinkedList<Recruit> recruits = repository.fetchAllRecruits();
-        return sortByQualification(recruits);
+//        return sortByQualification(recruits);
+    return recruits;
     }
 
     @Override

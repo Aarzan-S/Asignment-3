@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 /**
  * This class handles all the database related operation for admin such as register, update
  */
@@ -149,4 +150,37 @@ public class AdminRepository {
         }
         return adminStaff;
     }
+    
+    public String generateOTP(int id) {
+        int otp = new Random().nextInt(900000) + 100000;
+        invalidatePastOtp(id);
+        addOTPLog(otp, id);
+        return String.valueOf(otp);
+    }
+
+    public void addOTPLog(int otp, int id){
+        try (Connection connection = DBUtil.getConnection()) {
+            String sql = "insert into recruit_otp_log(otp, recruit_id, is_valid, last_updated) values(?,?,true,now())";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setInt(1, otp);
+                preparedStatement.setInt(2, id);
+                preparedStatement.execute();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void invalidatePastOtp(int id){
+        try (Connection connection = DBUtil.getConnection()) {
+            String sql = "update recruit_otp_log set is_valid = false, last_updated = now() where recruit_id = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setInt(1, id);
+                preparedStatement.execute();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+
 }

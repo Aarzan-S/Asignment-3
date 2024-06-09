@@ -30,7 +30,7 @@ public class AdminRegistrationPresenter {
             return;
         }
         adminStaffModel.add(adminStaff);
-        view.clearInputs();
+//        view.clearInputs();
         view.display("Admin details added", "INFO");
     }
 
@@ -48,6 +48,7 @@ public class AdminRegistrationPresenter {
             view.display(errMsg.split(":")[1], "ERROR");
             return;
         }
+        view.clearInputs();
         view.display("Admin Staff registered", "INFO");
     }
 }

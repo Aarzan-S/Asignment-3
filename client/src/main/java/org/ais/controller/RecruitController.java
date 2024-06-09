@@ -56,7 +56,7 @@ public class RecruitController implements Controller, IView<Recruit> {
      */
     @FXML
     private void logout() {
-        NavigationHelper.navigate("Login.fxml", "","");
+        NavigationHelper.navigate("RecruitLogin.fxml", "","");
     }
 
     @Override

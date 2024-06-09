@@ -239,4 +239,35 @@ public class RecruitHandler {
                 connection.disconnect();
         }
     }
+    
+    
+     public static String getOTP(String username) {
+        HttpURLConnection connection = null;
+        try {
+            String encodedUsername = URLEncoder.encode(username, "UTF-8");
+            URL url = new URL("http://localhost:8000/admin/recruit-otp-request?username="+ encodedUsername);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true);
+            connection.setRequestMethod("POST");
+            InputStream inputStream;
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+            if (HttpURLConnection.HTTP_OK == connection.getResponseCode()) {
+                inputStream = connection.getInputStream();
+                Response otpResponse = objectMapper.readValue(inputStream, Response.class);
+                return otpResponse.getMessage();
+            } else {
+                inputStream = connection.getErrorStream();
+                Response otpErrResponse = objectMapper.readValue(inputStream, Response.class);
+                return otpErrResponse.getMessage();
+            }
+        } catch (IOException ex) {
+            System.out.println("Could not connect to server");
+            throw new CustomException("Could not connect to server");
+        } finally {
+            if (connection != null)
+                connection.disconnect();
+        }
+    }
+
 }

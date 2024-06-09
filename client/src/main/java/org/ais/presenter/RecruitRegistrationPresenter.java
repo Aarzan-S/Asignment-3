@@ -33,7 +33,7 @@ public class RecruitRegistrationPresenter {
             return;
         }
         recruitModel.add(recruit);
-        view.clearInputs();
+//        view.clearInputs();
         view.display("Recruit details added", "INFO");
     }
 
@@ -56,6 +56,7 @@ public class RecruitRegistrationPresenter {
         }
         if ("Admin".equals(userRole) && null != userName)
             AdminLogHandler.addLog(userName, recruitModel.getAll().get(0).getUsername(), "Register Recruit");
+        view.clearInputs();
         view.display("Recruit registered", "INFO");
     }
 }

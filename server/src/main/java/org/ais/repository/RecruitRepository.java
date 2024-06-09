@@ -309,4 +309,59 @@ public class RecruitRepository {
         }
         return recruit;
     }
+    
+        
+     /**
+     * Check if user with the provided username exists or not
+     * if exits return recruitId otherwise 0
+     * @param username
+     * @return boolean
+     */
+    public int getRecruitId(String username) {
+        try (Connection connection = DBUtil.getConnection()) {
+            String sql = "select id from recruit where username = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, username);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    return resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
+    
+    
+    public boolean validateOTP(int recruitId, int otp) {
+        boolean isValid = false;
+        try (Connection connection = DBUtil.getConnection()) {
+            String sql = "select otp from recruit_otp_log where is_valid <> false and recruit_id = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setInt(1, recruitId);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    isValid = resultSet.getInt(1) == otp;
+                }
+                return isValid;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return isValid;
+    }
+    public void invalidateOtp(int recruitId, int otp){
+        try (Connection connection = DBUtil.getConnection()) {
+            String sql = "update recruit_otp_log set is_valid = false, last_updated = now() where recruit_id = ? and otp = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setInt(1, recruitId);
+                preparedStatement.setInt(2, otp);
+                preparedStatement.execute();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

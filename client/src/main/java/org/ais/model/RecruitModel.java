@@ -36,7 +36,7 @@ public class RecruitModel implements IModel<Recruit> {
 
     @Override
     public int add(Recruit recruit) {
-        recruits.add(recruit);
+        recruits.add(0, recruit);
         return 1;
     }
 

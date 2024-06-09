@@ -27,6 +27,12 @@ public class RecruitLoginController implements Controller, IView<Recruit> {
     private Label messageLabel;
     @FXML
     private Button loginBtn;
+    @FXML
+    private Button requestOTP;
+   
+    @FXML
+    private Label otpLabel;
+     @FXML
 
     /**
      * This is empty implementation of setUp method.
@@ -54,7 +60,11 @@ public class RecruitLoginController implements Controller, IView<Recruit> {
                         loginUserName.textProperty(), loginUserPassword.textProperty(), otpValue.textProperty())
         );
     }
-
+ 
+    @FXML
+    private void requestOTP(){
+        presenter.getOTP(loginUserName.getText().trim());
+    }
     /**
      * Validates username and password, if credential match, it will redirect the user to respective page
      * based on user type.
@@ -75,13 +85,16 @@ public class RecruitLoginController implements Controller, IView<Recruit> {
 
     @Override
     public void display(String message, String type) {
-        if ("INFO".equals(type)) {
-            messageLabel.setStyle("-fx-text-fill: green;");
-            messageLabel.setText(message);
-        } else {
+           if ("ERROR".equals(type)) {
             messageLabel.setStyle("-fx-text-fill: red;");
             messageLabel.setText(message);
+        } else if ("OTP".equals(type)){
+            messageLabel.setStyle("-fx-text-fill: green;");
+            otpLabel.setStyle("-fx-text-fill: green;");
+            messageLabel.setText("Your OTP is " +message);
+            otpLabel.setText(message);
         }
+
     }
 
     @Override

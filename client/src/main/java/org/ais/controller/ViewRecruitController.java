@@ -16,6 +16,7 @@ import org.ais.view.IView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.transformation.SortedList;
 
 /**
  * This class handles view recruit logic
@@ -55,7 +56,9 @@ public class ViewRecruitController implements Controller, IView<Recruit> {
     public void loadRecruitData() {
         recruits.addAll(presenter.loadData(userName, userRole));
         presenter.generateColumnDefinition(tableView, userRole);
-        tableView.setItems(filteredList);
+        SortedList<Recruit> sortedData = new SortedList<>(filteredList);
+        sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+        tableView.setItems(sortedData);
     }
 
     /**

@@ -1,4 +1,4 @@
-package org.ais.service;
+ package org.ais.service;
 
 import org.ais.model.Recruit;
 import org.ais.model.Response;
@@ -49,17 +49,19 @@ public class LoginService {
      * @return
      */
     public Response loginRecruit(Recruit recruit, String otp) {
-        if (!Objects.equals(otp, "ADMIN001")){
-            return new Response("Incorrect OTP", LocalDateTime.now(), "FAILED");
-        }
         RecruitRepository repository = RecruitRepository.getInstance();
-        String userRole = repository.doesUserExist(recruit);
-        if (userRole != null) {
+        int recruitId = repository.getRecruitId(recruit.getUsername());
+        if (recruitId != 0) {
             if (repository.validatePassword(recruit)) {
-                return new Response("Log in success", LocalDateTime.now(), "SUCCESS", userRole);
+                if(!repository.validateOTP(recruitId, Integer.parseInt(otp))){
+                    return new Response("ERROR: Incorrect OTP", LocalDateTime.now(), "FAILED");
+                }
+                repository.invalidateOtp(recruitId, Integer.parseInt(otp));
+                return new Response("Log in success", LocalDateTime.now(), "SUCCESS", "Recruit");
             }
-            return new Response("ERROR : Incorrect Password", LocalDateTime.now(), "FAILED");
+            return new Response("ERROR :Incorrect Password", LocalDateTime.now(), "FAILED");
         }
-        return new Response("ERROR : User does not exist", LocalDateTime.now(), "FAILED");
+        return new Response("ERROR :User does not exist", LocalDateTime.now(), "FAILED");
+
     }
 }

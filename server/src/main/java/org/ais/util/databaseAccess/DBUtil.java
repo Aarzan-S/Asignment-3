@@ -74,12 +74,17 @@ public class DBUtil {
                 " action_type varchar(255), recruit_id int, timestamp TIMESTAMP," +
                 " foreign key fk_admin_id (admin_id) references `AIS-R-DB`.staff(id)," +
                 " foreign key fk_recruit_id (recruit_id) references `AIS-R-DB`.recruit(id))";
+        String recruitOTPLogSQL = "create table if not exists `AIS-R-DB`.recruit_otp_log ("
+                + " id int auto_increment primary key not null, otp int, recruit_id int,"
+                + " is_valid boolean, last_updated TIMESTAMP,"
+                + " foreign key fk_recruit_id (recruit_id) references `AIS-R-DB`.recruit(id))";
 
         try {
             connection.prepareStatement(dbCreateSql).execute();
             connection.prepareStatement(recruitSQL).execute();
             connection.prepareStatement(staffSQL).execute();
             connection.prepareStatement(adminLogSQL).execute();
+            connection.prepareStatement(recruitOTPLogSQL).execute();
             loadStaffData(connection);
             loadRecruitData(connection);
         } catch (SQLException ex) {
